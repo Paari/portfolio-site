@@ -33,7 +33,7 @@ const projects = [
     {
         title: 'DoRemember',
         description: 'A productivity app to help you capture and remember important things at the right time.',
-        href: 'https://www.linkedin.com/in/paritosh-pundir',
+        href: null,
         stars: null,
         lang: null,
     },
@@ -77,7 +77,7 @@ const projects = [
                         clients to turn ideas into polished digital products.
                     </p>
                     <p>
-                        I specialise in picking technology stacks that balance scalability with simplicity —
+                        I specialize in picking technology stacks that balance scalability with simplicity —
                         building things that work well without over-engineering them.
                     </p>
                 </div>
@@ -107,18 +107,27 @@ const projects = [
                 <span class="section-label">Projects</span>
                 <div class="projects-grid">
                     {projects.map((project) => (
-                        <a class="project-card" href={project.href} target="_blank" rel="noopener noreferrer">
-                            <div class="project-top">
-                                <h3 class="project-title">{project.title}</h3>
-                                {project.stars !== null && (
-                                    <span class="project-stars">★ {project.stars}</span>
+                        project.href ? (
+                            <a class="project-card" href={project.href} target="_blank" rel="noopener noreferrer">
+                                <div class="project-top">
+                                    <h3 class="project-title">{project.title}</h3>
+                                    {project.stars !== null && (
+                                        <span class="project-stars">★ {project.stars}</span>
+                                    )}
+                                </div>
+                                <p class="project-desc">{project.description}</p>
+                                {project.lang && (
+                                    <span class="project-lang">{project.lang}</span>
                                 )}
+                            </a>
+                        ) : (
+                            <div class="project-card project-card--static">
+                                <div class="project-top">
+                                    <h3 class="project-title">{project.title}</h3>
+                                </div>
+                                <p class="project-desc">{project.description}</p>
                             </div>
-                            <p class="project-desc">{project.description}</p>
-                            {project.lang && (
-                                <span class="project-lang">{project.lang}</span>
-                            )}
-                        </a>
+                        )
                     ))}
                 </div>
             </div>
@@ -338,6 +347,15 @@ const projects = [
     .project-card:hover {
         border-color: #232323;
         transform: translateY(-2px);
+    }
+
+    .project-card--static {
+        cursor: default;
+    }
+
+    .project-card--static:hover {
+        border-color: #d8d8d8;
+        transform: none;
     }
 
     .project-top {
