@@ -1,6 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+
+const skills = [
+    { category: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Astro'] },
+    { category: 'Backend', items: ['Node.js', 'PHP', 'Laravel', 'Go'] },
+    { category: 'Mobile', items: ['Flutter', 'Android', 'Dart', 'Kotlin'] },
+    { category: 'Cloud & Tools', items: ['AWS', 'Supabase', 'Firebase', 'UX/UI Design'] },
+];
+
+const projects = [
+    {
+        title: 'Chrome Reader Extension',
+        description: 'A Google Chrome extension built in React for a distraction-free reading experience.',
+        href: 'https://github.com/Paari/chrome-reader-extension',
+        stars: 67,
+        lang: 'JavaScript',
+    },
+    {
+        title: 'Fitbit Health Explorer',
+        description: 'Open-source local-first Fitbit health dashboard with recovery, sleep, strain & readiness scores via Google Health API.',
+        href: 'https://github.com/Paari/fitbit-health-explorer',
+        stars: 2,
+        lang: 'JavaScript',
+    },
+    {
+        title: 'Conventional Commit CLI',
+        description: 'A terminal tool for creating conventional commit messages with an interactive prompt.',
+        href: 'https://github.com/Paari/conventional-commit-cli',
+        stars: 2,
+        lang: 'JavaScript',
+    },
+    {
+        title: 'DoRemember',
+        description: 'A productivity app to help you capture and remember important things at the right time.',
+        href: 'https://www.linkedin.com/in/paritosh-pundir',
+        stars: null,
+        lang: null,
+    },
+];
 ---
 
 <Layout title="Paritosh Pundir">
@@ -28,6 +65,75 @@ import Card from '../components/Card.astro';
             <p class="tag-line">Helping small businesses and startups solve problems through <span>pixels</span>.
             </p>
         </section>
+
+        <section class="about-section content-section">
+            <div class="section-inner">
+                <span class="section-label">About</span>
+                <div class="about-body">
+                    <p>
+                        I'm a self-taught full-stack developer and technology consultant based in
+                        <strong>Dehradun, India</strong>, with over <strong>10 years</strong> of experience
+                        in web design and development. I work with small businesses, startups, and international
+                        clients to turn ideas into polished digital products.
+                    </p>
+                    <p>
+                        I specialise in picking technology stacks that balance scalability with simplicity —
+                        building things that work well without over-engineering them.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section content-section">
+            <div class="section-inner">
+                <span class="section-label">Skills</span>
+                <div class="skills-grid">
+                    {skills.map((group) => (
+                        <div class="skill-group">
+                            <h3 class="skill-category">{group.category}</h3>
+                            <ul class="skill-list">
+                                {group.items.map((item) => (
+                                    <li class="skill-item">{item}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section class="projects-section content-section">
+            <div class="section-inner">
+                <span class="section-label">Projects</span>
+                <div class="projects-grid">
+                    {projects.map((project) => (
+                        <a class="project-card" href={project.href} target="_blank" rel="noopener noreferrer">
+                            <div class="project-top">
+                                <h3 class="project-title">{project.title}</h3>
+                                {project.stars !== null && (
+                                    <span class="project-stars">★ {project.stars}</span>
+                                )}
+                            </div>
+                            <p class="project-desc">{project.description}</p>
+                            {project.lang && (
+                                <span class="project-lang">{project.lang}</span>
+                            )}
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span class="footer-copy">Paritosh Pundir &mdash; Dehradun, India</span>
+                <nav class="footer-links">
+                    <a href="https://github.com/Paari" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/paritosh-pundir" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://dribbble.com/paritosh_pundir" target="_blank" rel="noopener noreferrer">Dribbble</a>
+                </nav>
+            </div>
+        </footer>
     </main>
 </Layout>
 
@@ -142,4 +248,195 @@ import Card from '../components/Card.astro';
         color: var(--color-red);
     }
 
+    /* Shared section styles */
+    .content-section {
+        padding: 5rem 4rem;
+        border-top: 1px solid #d8d8d8;
+    }
+
+    .section-inner {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 2rem;
+        max-width: 960px;
+    }
+
+    .section-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #888;
+        padding-top: 0.25rem;
+    }
+
+    /* About */
+    .about-body p {
+        margin: 0 0 1rem;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: #333;
+        max-width: 640px;
+    }
+
+    .about-body p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Skills */
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 2rem;
+    }
+
+    .skill-category {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #232323;
+        margin: 0 0 0.75rem;
+    }
+
+    .skill-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .skill-item {
+        font-size: 0.95rem;
+        color: #555;
+        padding: 0.2rem 0;
+    }
+
+    .skill-item::before {
+        content: '—';
+        color: var(--color-red);
+        margin-right: 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    /* Projects */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .project-card {
+        display: block;
+        padding: 1.5rem;
+        border: 1px solid #d8d8d8;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.2s, transform 0.2s;
+        background: #fff;
+    }
+
+    .project-card:hover {
+        border-color: #232323;
+        transform: translateY(-2px);
+    }
+
+    .project-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0;
+        color: #232323;
+    }
+
+    .project-stars {
+        font-size: 0.8rem;
+        color: #888;
+        white-space: nowrap;
+        margin-left: 0.5rem;
+    }
+
+    .project-desc {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: #555;
+        margin: 0 0 1rem;
+    }
+
+    .project-lang {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #888;
+    }
+
+    /* Footer */
+    .site-footer {
+        padding: 2rem 4rem;
+        border-top: 1px solid #d8d8d8;
+    }
+
+    .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        max-width: 960px;
+    }
+
+    .footer-copy {
+        font-size: 0.85rem;
+        color: #888;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .footer-links a {
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #232323;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+        color: var(--color-red);
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+        .name-wrapper {
+            padding: 0 1.5rem;
+        }
+
+        .content-section {
+            padding: 3rem 1.5rem;
+        }
+
+        .section-inner {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .site-footer {
+            padding: 2rem 1.5rem;
+        }
+
+        .footer-inner {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
 </style>
