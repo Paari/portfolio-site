@@ -67,8 +67,7 @@ const projects = [
                 <span class="name-hidden">Paritosh Pundir</span>
 
             </h1>
-            <p class="tag-line">Helping small businesses and startups solve problems through <span>pixels</span> and RGB motion.
-            </p>
+            <p class="tag-line">Helping small businesses and startups solve problems through <span>pixels</span> and RGB motion.</p>
         </section>
 
         <section class="about-section content-section">
@@ -161,7 +160,6 @@ const projects = [
     .rgb-canvas {
         position: fixed;
         inset: 0;
-        pointer-events: none;
         z-index: -1;
         background:
                 radial-gradient(circle at 20% 10%, rgba(255, 60, 60, 0.18), transparent 45%),
@@ -283,7 +281,7 @@ const projects = [
     .name svg {
         width: 100%;
         height: auto;
-        filter: drop-shadow(0 0 16px rgba(91, 110, 255, 0.32));
+        filter: none;
     }
 
     .name::before {
@@ -367,14 +365,13 @@ const projects = [
     }
 
     .tag-line span {
-        color: var(--color-red);
-        text-shadow: 0 0 12px rgba(255, 77, 77, 0.8);
+        color: #ff8e8e;
+        text-shadow: 0 0 6px rgba(255, 77, 77, 0.35);
     }
 
     .content-section {
         padding: 5rem 4rem;
         border-top: 1px solid rgba(167, 180, 255, 0.26);
-        backdrop-filter: blur(2px);
     }
 
     .section-inner {
@@ -433,11 +430,10 @@ const projects = [
     }
 
     .skill-item::before {
-        content: '■';
+        content: '—';
         color: var(--color-red);
         margin-right: 0.5rem;
-        font-size: 0.55rem;
-        vertical-align: middle;
+        font-size: 0.7rem;
     }
 
     .projects-grid {
