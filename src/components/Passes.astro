@@ -32,10 +32,25 @@ const steps = [
 <section class="passes" aria-labelledby="passes-heading" data-passes>
     <div class="wrap passes-head" data-reveal>
         <h2 id="passes-heading">Three passes, one picture.</h2>
-        <p>
+        <p class="passes-sub">
             A screen paints every frame in three passes of light: red, green and blue. I make
             products the same way.
         </p>
+
+        <div class="passes-pillars">
+            <div class="pillar pillar--r">
+                <span class="pillar-key">R. DESIGN</span>
+                <p class="pillar-desc">First, the idea. Finding the silhouette and cutting out noise.</p>
+            </div>
+            <div class="pillar pillar--g">
+                <span class="pillar-key">G. BUILD</span>
+                <p class="pillar-desc">Then, the make. Clean code architectures that scale with dignity.</p>
+            </div>
+            <div class="pillar pillar--b">
+                <span class="pillar-key">B. LEAD</span>
+                <p class="pillar-desc">Then, the rise. Mentoring teams and aligning vision to execute.</p>
+            </div>
+        </div>
     </div>
 
     <div class="wrap passes-body">
@@ -266,6 +281,51 @@ const steps = [
         color: var(--ink-soft);
         max-width: 46ch;
         margin: 0;
+    }
+
+    .passes-pillars {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+        margin-top: clamp(2rem, 4vh, 3rem);
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+    }
+
+    .pillar {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding-top: 0.75rem;
+        border-top: 2px solid var(--line);
+    }
+
+    .pillar--r { border-top-color: var(--r-text); }
+    .pillar--g { border-top-color: var(--g-text); }
+    .pillar--b { border-top-color: var(--b-text); }
+
+    .pillar-key {
+        font-family: var(--font-pixel);
+        font-size: 0.8125rem;
+        letter-spacing: 0.02em;
+    }
+
+    .pillar--r .pillar-key { color: var(--r-text); }
+    .pillar--g .pillar-key { color: var(--g-text); }
+    .pillar--b .pillar-key { color: var(--b-text); }
+
+    .pillar-desc {
+        font-size: 0.875rem;
+        line-height: 1.45;
+        color: var(--ink-soft);
+        margin: 0;
+    }
+
+    @media (max-width: 767px) {
+        .passes-pillars {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
     }
 
     .passes-body {

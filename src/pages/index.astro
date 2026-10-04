@@ -91,34 +91,30 @@ const rituals = [
     </header>
 
     <main id="top">
-        <!-- Hero Section -->
-        <section class="hero wrap" aria-label="Introduction">
-            <div class="hero-top">
-                <div class="hero-eyebrow">
-                    <span class="badge-dot"></span>
-                    <span>15 YEARS AT THE OVERLAP OF DESIGN, CODE AND PEOPLE</span>
-                </div>
+        <!-- Full-Width Unboxed Hero Section -->
+        <section class="hero-section" aria-label="Introduction">
+            <!-- Full width canvas stage: edge-to-edge unboxed -->
+            <div class="hero-stage">
+                <PixelHero name="PARITOSH PUNDIR" />
             </div>
 
-            <PixelHero name="PARITOSH PUNDIR" />
-
-            <div class="hero-statement">
+            <div class="wrap hero-statement">
+                <h1 class="visually-hidden">Paritosh Pundir, Designer &amp; Developer</h1>
                 <p class="hero-lead">
                     I turn scattered ideas into products people actually use.
                 </p>
-                <div class="hero-pillars">
-                    <div class="pillar pillar--r">
-                        <span class="pillar-key">R. DESIGN</span>
-                        <p class="pillar-desc">First, the idea. Finding the silhouette and cutting out noise.</p>
-                    </div>
-                    <div class="pillar pillar--g">
-                        <span class="pillar-key">G. BUILD</span>
-                        <p class="pillar-desc">Then, the make. Clean code architectures that scale with dignity.</p>
-                    </div>
-                    <div class="pillar pillar--b">
-                        <span class="pillar-key">B. LEAD</span>
-                        <p class="pillar-desc">Then, the rise. Mentoring teams and aligning vision to execute.</p>
-                    </div>
+                <p class="hero-subtext">
+                    Fifteen years at the overlap of design systems, resilient web architecture, and product leadership. Based in Dehradun.
+                </p>
+                <div class="hero-actions">
+                    <a href="#work" class="hero-btn hero-btn--primary">
+                        <span>Explore Selected Work</span>
+                        <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                    <a href="#passes" class="hero-btn hero-btn--secondary">
+                        <span>The RGB Method</span>
+                        <span class="btn-arrow" aria-hidden="true">&darr;</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -131,10 +127,6 @@ const rituals = [
         <!-- Selected Work Bento Grid -->
         <section class="work wrap" id="work" aria-labelledby="work-heading">
             <div class="section-header" data-reveal>
-                <div class="section-tag">
-                    <span class="tag-channel tag-channel--g"></span>
-                    <span>PROVEN OUTCOMES</span>
-                </div>
                 <h2 id="work-heading" class="section-title">Selected Work</h2>
                 <p class="section-sub">
                     A sample of tools, open-source projects, and systems built with care.
@@ -177,10 +169,6 @@ const rituals = [
         <!-- The Workshop & Rituals -->
         <section class="rituals wrap" aria-labelledby="rituals-heading" data-reveal>
             <div class="rituals-inner">
-                <div class="section-tag">
-                    <span class="tag-channel tag-channel--b"></span>
-                    <span>BEHIND THE SCREEN</span>
-                </div>
                 <h2 id="rituals-heading" class="rituals-title">The Workshop &amp; Rituals</h2>
                 <p class="rituals-sub">
                     Generalist versatility backed by 15 years of continuous discipline.
@@ -203,10 +191,6 @@ const rituals = [
         <!-- Contact Section -->
         <footer class="contact wrap" id="contact" aria-labelledby="contact-heading">
             <div class="contact-box" data-reveal>
-                <div class="section-tag">
-                    <span class="tag-channel tag-channel--r"></span>
-                    <span>AVAILABILITY</span>
-                </div>
                 <h2 id="contact-heading" class="contact-head">
                     Let's make
                     <span class="misreg" data-misreg>
@@ -342,12 +326,12 @@ const rituals = [
     }
 
     /* Hero ----------------------------------------------------------- */
-    .hero {
-        padding-top: clamp(2.5rem, 6vh, 4rem);
-        padding-bottom: clamp(4rem, 10vh, 7rem);
+    .hero-section {
+        padding-top: clamp(1.5rem, 4vh, 2.75rem);
+        padding-bottom: clamp(3.5rem, 8vh, 6rem);
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: clamp(1.5rem, 3vh, 2.5rem);
     }
 
     .hero-top {
@@ -373,56 +357,86 @@ const rituals = [
         box-shadow: 0 0 6px var(--g-text);
     }
 
+    .hero-stage {
+        width: 100%;
+        overflow: hidden;
+    }
+
     .hero-statement {
-        display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.8fr);
-        gap: 3rem;
-        align-items: start;
-        padding-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        max-width: 54rem;
+        padding-top: 1.75rem;
         border-top: 1px solid var(--line);
     }
 
     .hero-lead {
-        font-size: clamp(1.4rem, 2.5vw, 2.25rem);
+        font-size: clamp(1.6rem, 3.2vw, 2.75rem);
         font-weight: 500;
-        letter-spacing: -0.025em;
-        line-height: 1.2;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
         margin: 0;
     }
 
-    .hero-pillars {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1.5rem;
-    }
-
-    .pillar {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-        padding-top: 0.75rem;
-        border-top: 2px solid var(--line);
-    }
-
-    .pillar--r { border-top-color: var(--r-text); }
-    .pillar--g { border-top-color: var(--g-text); }
-    .pillar--b { border-top-color: var(--b-text); }
-
-    .pillar-key {
-        font-family: var(--font-pixel);
-        font-size: 0.8125rem;
-        letter-spacing: 0.02em;
-    }
-
-    .pillar--r .pillar-key { color: var(--r-text); }
-    .pillar--g .pillar-key { color: var(--g-text); }
-    .pillar--b .pillar-key { color: var(--b-text); }
-
-    .pillar-desc {
-        font-size: 0.875rem;
-        line-height: 1.45;
+    .hero-subtext {
+        font-size: clamp(1.05rem, 1.4vw, 1.25rem);
         color: var(--ink-soft);
+        max-width: 48ch;
+        line-height: 1.55;
         margin: 0;
+    }
+
+    .hero-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        text-decoration: none;
+        padding: 0.65rem 1.25rem;
+        transition: all 0.2s var(--ease);
+    }
+
+    .hero-btn--primary {
+        background: var(--ink);
+        color: var(--paper);
+        border: 1px solid var(--ink);
+    }
+
+    .hero-btn--primary:hover {
+        background: transparent;
+        color: var(--ink);
+    }
+
+    .hero-btn--secondary {
+        background: var(--paper);
+        color: var(--ink);
+        border: 1px solid var(--line);
+    }
+
+    .hero-btn--secondary:hover {
+        border-color: var(--ink);
+    }
+
+    .btn-arrow {
+        transition: transform 0.2s var(--ease);
+    }
+
+    .hero-btn:hover .btn-arrow {
+        transform: translateX(3px);
+    }
+
+    .hero-btn--secondary:hover .btn-arrow {
+        transform: translateY(3px);
     }
 
     /* Section Headers ------------------------------------------------ */
@@ -479,7 +493,7 @@ const rituals = [
     .project-card {
         padding: clamp(1.5rem, 4vw, 2.5rem);
         border: 1px solid var(--line);
-        background: rgb(var(--ink-rgb) / 0.015);
+        background: var(--paper);
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -600,7 +614,7 @@ const rituals = [
         gap: 0.4rem;
         padding: 1.25rem;
         border: 1px solid var(--line);
-        background: rgb(var(--ink-rgb) / 0.015);
+        background: var(--paper);
     }
 
     .ritual-label {

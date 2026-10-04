@@ -55,7 +55,7 @@ const { name } = Astro.props;
 
     if (root && canvas) {
         const bitmap = textBitmap(['PARITOSH', 'PUNDIR'], 2);
-        const PAD_ROWS = 2;
+        const PAD_ROWS = 1;
 
         let palette: Palette = readPalette();
         let ctx: CanvasRenderingContext2D;
@@ -86,7 +86,7 @@ const { name } = Astro.props;
         const measure = () => {
             const wrap = root.getBoundingClientRect();
             // Calculate cell size based on available container width
-            cell = Math.max(7, Math.min(24, Math.floor((wrap.width - 24) / bitmap.cols)));
+            cell = Math.max(7, Math.min(19, Math.floor((wrap.width - 48) / bitmap.cols)));
             width = Math.max(320, wrap.width);
             height = (bitmap.rows + PAD_ROWS * 2) * cell;
 
@@ -109,7 +109,7 @@ const { name } = Astro.props;
             const sigma2 = 2 * (radius * 0.55) ** 2;
             const amp = cell * 0.85 * pointer.on;
 
-            // 1. Background Pixel Grid (Subtle ambient CRT phosphor matrix)
+            // 1. Background Pixel Grid (CRT phosphor subpixels under loupe or phosphor mode)
             ctx.globalCompositeOperation = 'source-over';
             const dot = Math.max(1.5, cell * 0.12);
 
@@ -128,18 +128,18 @@ const { name } = Astro.props;
                     const s = Math.exp(-(dx * dx + dy * dy) / sigma2) * pointer.on;
 
                     if (s > 0.05 && mode !== 'split') {
-                        // Under pointer loupe, unlit subpixels ignite
-                        const barW = cell * 0.18;
-                        const barH = cell * 0.65 * (0.6 + 0.4 * s);
+                        // Under pointer loupe, unlit subpixels ignite in red, green, blue
+                        const barW = cell * 0.2;
+                        const barH = cell * 0.7 * (0.6 + 0.4 * s);
                         for (let k = 0; k < 3; k++) {
                             const ch = palette.channels[k];
                             if (!ch) continue;
-                            ctx.fillStyle = rgba(ch, 0.7 * s);
+                            ctx.fillStyle = rgba(ch, 0.75 * s);
                             ctx.fillRect(cx + (k - 1) * cell * 0.28 - barW / 2, cy - barH / 2, barW, barH);
                         }
-                    } else {
-                        // Ambient resting pixel dot
-                        const alpha = mode === 'phosphor' ? 0.18 : palette.dark ? 0.11 : 0.07;
+                    } else if (mode === 'phosphor') {
+                        // Ambient resting pixel dot in explicit CRT Grid mode
+                        const alpha = palette.dark ? 0.2 : 0.12;
                         ctx.fillStyle = rgba(palette.ink, alpha);
                         ctx.fillRect(cx - dot / 2, cy - dot / 2, dot, dot);
                     }
@@ -268,16 +268,14 @@ const { name } = Astro.props;
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 1.25rem;
+        gap: 1.5rem;
     }
 
     .hero-canvas-wrap {
         position: relative;
         width: 100%;
         overflow: hidden;
-        border: 1px solid var(--line);
-        background: rgb(var(--ink-rgb) / 0.02);
-        box-shadow: inset 0 0 20px rgb(var(--ink-rgb) / 0.02);
+        background: transparent;
     }
 
     .pixel-hero-canvas {
@@ -297,12 +295,15 @@ const { name } = Astro.props;
     }
 
     .hero-hud {
+        width: 100%;
+        max-width: 1320px;
+        margin-inline: auto;
+        padding-inline: var(--gutter);
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 0.75rem 1.5rem;
-        padding-inline: 0.25rem;
     }
 
     .hud-status {
