@@ -11,7 +11,7 @@ const {title} = Astro.props;
 <head>
     <meta charset="UTF-8"/>
     <meta name="description"
-          content="Paritosh Pundir the top full stack developer in Dehradun with high experience in Design and development"/>
+          content="Paritosh Pundir — a designer and developer in Dehradun who turns scattered ideas into products people use."/>
     <meta name="viewport" content="width=device-width"/>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <meta name="generator" content={Astro.generator}/>
@@ -22,41 +22,58 @@ const {title} = Astro.props;
 </body>
 </html>
 <style is:global>
-    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
     :root {
-        --accent: 91, 110, 255;
-        --accent-light: 220, 226, 255;
-        --accent-dark: 27, 37, 87;
-        --color-red: #d64545;
-        --color-green: #2e9e5b;
-        --color-blue: #4a5bd0;
-        --accent-gradient: linear-gradient(
-                45deg,
-                rgb(var(--accent)),
-                rgb(var(--accent-light)) 30%,
-                rgb(var(--accent)) 60%
-        );
+        /* RGB channels carry meaning across the site. */
+        --red: 211, 58, 58; /* Design */
+        --green: 32, 150, 85; /* Build */
+        --blue: 60, 86, 214; /* Lead */
+        --color-red: rgb(var(--red));
+        --color-green: rgb(var(--green));
+        --color-blue: rgb(var(--blue));
+
+        --ink: #141414;
+        --ink-soft: #3d3d3d;
+        --ink-faint: #6b6b6b;
+        --paper: #f6f5f3;
+        --line: rgba(20, 20, 20, 0.12);
+
+        --font-display: 'Space Grotesk', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+        box-sizing: border-box;
     }
 
     html {
-        font-family: "Lato", sans-serif;
-        background: #fafafa;
+        font-family: var(--font-display);
+        background: var(--paper);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
     }
 
     body {
         margin: 0;
         min-height: 100vh;
+        font-size: 1.125rem;
+        line-height: 1.6;
     }
 
-    code {
-        font-family: Menlo,
-        Monaco,
-        Lucida Console,
-        Liberation Mono,
-        DejaVu Sans Mono,
-        Bitstream Vera Sans Mono,
-        Courier New,
-        monospace;
+    h1, h2, h3 {
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+    }
+
+    a {
+        color: inherit;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation: none !important;
+            transition: none !important;
+        }
     }
 </style>

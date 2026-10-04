@@ -1,146 +1,128 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HairlineFigure from '../components/HairlineFigure.astro';
 
-const skills = [
-    { category: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Astro'] },
-    { category: 'Backend', items: ['Node.js', 'PHP', 'Laravel', 'Go'] },
-    { category: 'Mobile', items: ['Flutter', 'Android', 'Dart', 'Kotlin'] },
-    { category: 'Cloud & Tools', items: ['AWS', 'Supabase', 'Firebase', 'UX/UI Design'] },
-];
-
-const projects = [
+const passes = [
     {
-        title: 'Chrome Reader Extension',
-        description: 'A Google Chrome extension built in React for a distraction-free reading experience.',
-        href: 'https://github.com/Paari/chrome-reader-extension',
-        stars: 67,
-        lang: 'JavaScript',
+        key: 'R',
+        channel: 'red',
+        title: 'Design',
+        role: 'first, the idea',
+        figure: 'riffle',
+        body: 'I take something scattered and give it a shape and a story, deciding what to leave out so the rest can breathe.',
     },
     {
-        title: 'Fitbit Health Explorer',
-        description: 'Open-source local-first Fitbit health dashboard with recovery, sleep, strain & readiness scores via Google Health API.',
-        href: 'https://github.com/Paari/fitbit-health-explorer',
-        stars: 2,
-        lang: 'JavaScript',
+        key: 'G',
+        channel: 'green',
+        title: 'Build',
+        role: 'then, the make',
+        figure: 'branches',
+        body: 'I turn that shape into working software, choosing stacks that scale without over-engineering them.',
     },
     {
-        title: 'Conventional Commit CLI',
-        description: 'A terminal tool for creating conventional commit messages with an interactive prompt.',
-        href: 'https://github.com/Paari/conventional-commit-cli',
-        stars: 2,
-        lang: 'JavaScript',
+        key: 'B',
+        channel: 'blue',
+        title: 'Lead',
+        role: 'then, the rise',
+        figure: 'elevator',
+        body: 'I grow the team around the work and help people climb past their own doubts, so it reaches further than I could carry alone.',
     },
-    {
-        title: 'DoRemember',
-        description: 'A productivity app to help you capture and remember important things at the right time.',
-        href: null,
-        stars: null,
-        lang: null,
-    },
-];
+] as const;
 ---
 
-<Layout title="Paritosh Pundir">
+<Layout title="Paritosh Pundir — Designer & Developer">
+    <header class="topbar">
+        <span class="mark" aria-hidden="true">
+            <span class="mark-dot mark-dot--r"></span>
+            <span class="mark-dot mark-dot--g"></span>
+            <span class="mark-dot mark-dot--b"></span>
+        </span>
+        <span class="topbar-meta">Paritosh Pundir / Designer &amp; Developer</span>
+        <a class="topbar-link" href="mailto:Paritosh.Pundir@outlook.com">Get in touch</a>
+    </header>
+
     <main>
-        <div class="rgb-canvas" aria-hidden="true">
-            <span class="rgb-pixel rgb-pixel--r"></span>
-            <span class="rgb-pixel rgb-pixel--g"></span>
-            <span class="rgb-pixel rgb-pixel--b"></span>
-        </div>
-        <header class="main-header">
-          <span class="logo">
-            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="25" height="25" fill="#232323"/>
-            </svg>
-
-            <span class="logo-tag">Believe</span>
-          </span>
-        </header>
-
-        <section class="name-wrapper">
-            <h1 class="name">
-                <svg width="811.578" xmlns="http://www.w3.org/2000/svg" height="53.87"
-                     viewBox="-577.269 1371.75 811.578 53.87" fill="none">
-                    <path d="M-577.269 1371.75h30.196c3.929 0 7.338.18 10.227.55 2.889.35 5.351.86 7.385 1.53 2.033.67 3.686 1.49 4.957 2.46 1.294.97 2.3 2.06 3.016 3.26.74 1.2 1.237 2.52 1.491 3.95.277 1.44.416 2.96.416 4.58 0 1.66-.162 3.22-.485 4.68a11.08 11.08 0 0 1-1.699 4.02c-.832 1.2-1.988 2.29-3.467 3.26-1.456.97-3.34 1.79-5.651 2.46-2.288.65-5.061 1.16-8.32 1.53-3.236.34-7.049.52-11.441.52v4.54l4.438.86V1425h-31.063v-15.05l4.438-.86v-21.43l-4.438-.86v-15.05Zm26.625 23.26c1.341 0 2.554-.07 3.641-.21 1.109-.13 2.045-.42 2.808-.86.785-.46 1.386-1.12 1.802-1.98.416-.85.624-2.01.624-3.47 0-1.41-.208-2.53-.624-3.36-.416-.85-1.017-1.5-1.802-1.94-.763-.44-1.699-.73-2.808-.87-1.087-.13-2.3-.2-3.641-.2v12.89Zm65.246 29.99-1.734-8.22h-13.624l-1.734 8.22h-18.547v-16.09l4.021-.79 9.603-31.93h26.903l9.672 31.93 3.987.79V1425h-18.547Zm-13.244-19.17h9.395l-4.714-19.17-4.681 19.17Zm91.177 19.17h-20.731a250.63 250.63 0 0 1-2.011-3.81 83.924 83.924 0 0 1-3.848-8.84 47.318 47.318 0 0 1-1.422-4.86h-1.144V1425h-25.03v-13.83l4.16-.8v-19.73l-4.16-.79v-13.66h28.393c3.767 0 7.015.16 9.742.48 2.75.33 5.073.8 6.968 1.42 1.918.63 3.467 1.39 4.646 2.29 1.178.88 2.091 1.89 2.738 3.02a10.446 10.446 0 0 1 1.352 3.67c.232 1.34.347 2.77.347 4.27 0 1.52-.15 2.91-.451 4.16a9.334 9.334 0 0 1-1.525 3.43c-.74 1.04-1.756 2-3.051 2.88-1.271.85-2.9 1.66-4.888 2.42.416.84 1.029 1.83 1.838 2.99.832 1.13 1.733 2.29 2.704 3.5.97 1.18 1.929 2.32 2.877 3.43a523.57 523.57 0 0 0 2.496 2.84v8.01Zm-29.156-26.9c1.272 0 2.416-.06 3.433-.18 1.04-.13 1.918-.41 2.634-.83.74-.44 1.306-1.07 1.699-1.9.393-.84.589-1.96.589-3.37 0-1.38-.196-2.49-.589-3.33-.393-.83-.959-1.46-1.699-1.9-.716-.46-1.594-.76-2.634-.9a25.346 25.346 0 0 0-3.433-.21v12.62Zm35.015-21.91h29.19v13.66l-4.16.79v19.73l4.16.8V1425h-29.19v-13.83l4.16-.8v-19.73l-4.16-.79v-13.66Zm47.148 12.89c-1.201 0-2.264.17-3.189.49-.924.32-1.699.73-2.323 1.21-.624.49-1.098 1.02-1.421 1.6-.324.55-.485 1.07-.485 1.56h-5.79v-17.75h47.287v17.75h-5.789c0-.49-.162-1.01-.486-1.56-.323-.58-.797-1.11-1.421-1.6-.624-.48-1.398-.89-2.323-1.21-.924-.32-1.988-.49-3.189-.49v21.29l4.16.8V1425h-29.191v-13.83l4.16-.8v-21.29Zm66.702 36.54c-4.068 0-7.882-.42-11.441-1.28-3.536-.88-6.621-2.37-9.256-4.47-2.612-2.13-4.68-4.83-6.206-8.11-1.502-3.29-2.253-7.23-2.253-11.82 0-4.51.751-8.35 2.253-11.51 1.526-3.19 3.606-5.78 6.241-7.77 2.634-2.01 5.72-3.48 9.256-4.4 3.536-.93 7.338-1.39 11.406-1.39 4.044 0 7.835.46 11.371 1.39 3.559.92 6.656 2.39 9.291 4.4 2.658 1.99 4.749 4.58 6.275 7.77 1.525 3.16 2.288 7 2.288 11.51 0 3.05-.347 5.82-1.04 8.32-.694 2.47-1.676 4.68-2.947 6.62a20.738 20.738 0 0 1-4.542 4.99c-1.756 1.39-3.721 2.54-5.893 3.47-2.173.9-4.507 1.5-7.003 1.8-2.496.32-5.096.48-7.8.48Zm0-35.98c-1.364 0-2.52.17-3.467.52-.925.35-1.699.8-2.323 1.35a6.351 6.351 0 0 0-1.421 1.91 9.483 9.483 0 0 0-.763 2.22 18.18 18.18 0 0 0-.277 2.21c-.023.72-.035 1.36-.035 1.91 0 .53.012 1.17.035 1.91.023.71.104 1.48.242 2.29.139.78.37 1.57.694 2.35.323.79.786 1.49 1.386 2.12.624.62 1.41 1.13 2.358 1.52.971.37 2.161.56 3.571.56 1.386 0 2.554-.19 3.501-.56.971-.37 1.757-.85 2.358-1.45a7.182 7.182 0 0 0 1.456-2.08 9.79 9.79 0 0 0 .728-2.29c.161-.79.254-1.55.277-2.29.046-.74.069-1.37.069-1.9 0-.56-.023-1.2-.069-1.91-.023-.74-.116-1.49-.277-2.26a8.542 8.542 0 0 0-.728-2.21 6.392 6.392 0 0 0-1.456-1.98c-.601-.58-1.387-1.04-2.358-1.39-.947-.37-2.115-.55-3.501-.55Zm77.136 20c0 2.15-.312 4.06-.936 5.72-.601 1.64-1.433 3.08-2.496 4.3a13.761 13.761 0 0 1-3.744 3.02 23.234 23.234 0 0 1-4.646 1.97c-1.664.49-3.409.77-5.235.84-1.802.09-3.605.13-5.408.13-2.496 0-4.749-.05-6.76-.17-2.011-.11-3.814-.37-5.408-.76a38.04 38.04 0 0 1-4.195-1.28 42.738 42.738 0 0 1-3.19-1.43v-12.03h9.811c.971 1.53 2.08 2.65 3.328 3.37 1.249.71 2.531 1.07 3.849 1.07.393 0 .832-.03 1.317-.1s.936-.29 1.352-.66c.416-.37.763-.94 1.04-1.7.301-.79.451-1.88.451-3.29-1.872-.17-3.733-.4-5.582-.7a41.411 41.411 0 0 1-5.269-1.28 24.556 24.556 0 0 1-4.646-2.01 15.962 15.962 0 0 1-3.744-2.98c-1.04-1.18-1.86-2.56-2.461-4.13-.601-1.59-.902-3.42-.902-5.47 0-2.36.301-4.42.902-6.18.601-1.78 1.421-3.3 2.461-4.57a13.91 13.91 0 0 1 3.675-3.16 20.84 20.84 0 0 1 4.611-1.97c1.641-.49 3.351-.82 5.131-1.01 1.779-.21 3.559-.31 5.338-.31 2.52 0 4.773.13 6.761.38 2.01.26 3.802.58 5.373.97 1.595.4 2.993.83 4.195 1.32 1.225.46 2.311.91 3.259 1.35v12.14h-10.505c-.878-1.67-1.883-2.88-3.016-3.64-1.132-.77-2.288-1.15-3.466-1.15-.393 0-.844.07-1.353.21-.508.11-.982.39-1.421.83-.439.44-.809 1.09-1.109 1.94-.301.86-.451 2.01-.451 3.47 3.813.14 7.153.54 10.019 1.21 2.889.67 5.304 1.68 7.246 3.02 1.941 1.32 3.397 3.03 4.368 5.13.971 2.08 1.456 4.61 1.456 7.59Zm5.616-33.45h29.191v13.73l-4.161.79v5.72h16.676v-5.72l-4.16-.79v-13.91h29.19v13.91l-4.16.79v19.66l4.16.8V1425h-29.19v-13.83l4.16-.8v-5.79h-16.676v5.79l4.161.8V1425h-29.191v-13.83l4.16-.8v-19.66l-4.16-.79v-13.73Zm95.337-4.44h30.196c3.929 0 7.338.18 10.227.55 2.889.35 5.35.86 7.384 1.53 2.034.67 3.686 1.49 4.958 2.46 1.294.97 2.299 2.06 3.016 3.26.739 1.2 1.236 2.52 1.49 3.95.278 1.44.417 2.96.417 4.58 0 1.66-.162 3.22-.486 4.68-.3 1.45-.867 2.8-1.699 4.02-.832 1.2-1.987 2.29-3.466 3.26-1.456.97-3.34 1.79-5.651 2.46-2.288.65-5.062 1.16-8.321 1.53-3.235.34-7.049.52-11.44.52v4.54l4.438.86V1425h-31.063v-15.05l4.438-.86v-21.43l-4.438-.86v-15.05Zm26.625 23.26c1.341 0 2.554-.07 3.64-.21 1.11-.13 2.046-.42 2.808-.86.786-.46 1.387-1.12 1.803-1.98.416-.85.624-2.01.624-3.47 0-1.41-.208-2.53-.624-3.36-.416-.85-1.017-1.5-1.803-1.94-.762-.44-1.698-.73-2.808-.87-1.086-.13-2.299-.2-3.64-.2v12.89Zm89.235-4.37c-.023.7-.034 1.38-.034 2.05v7.25c0 4.62-.636 8.58-1.907 11.89-1.271 3.28-2.993 5.97-5.166 8.07-2.172 2.11-4.726 3.59-7.661 4.44-2.912.86-6.009 1.28-9.291 1.28-3.791 0-7.338-.42-10.643-1.28-3.282-.85-6.148-2.33-8.598-4.44-2.427-2.12-4.345-4.83-5.755-8.11-1.387-3.28-2.08-7.23-2.08-11.85v-9.3l-4.16-.79v-13.66h27.076v13.66l-4.161.79V1398.03c.024.48.035.91.035 1.28v.69c0 .54.012 1.16.035 1.88.023.69.115 1.42.277 2.18.162.74.405 1.48.728 2.22.347.72.821 1.36 1.422 1.94.624.58 1.398 1.05 2.322 1.42.948.35 2.115.52 3.502.52 1.387 0 2.554-.17 3.501-.52.971-.37 1.757-.84 2.358-1.42a6.756 6.756 0 0 0 1.456-2.01c.346-.74.589-1.48.728-2.22.162-.76.254-1.49.277-2.18.046-.72.069-1.34.069-1.87v-.77c0-.37-.011-.78-.034-1.25V1390.64l-4.16-.79v-13.66h24.059v13.66l-4.195.79Zm26.279 8.74v10.99l4.195.76V1425H15.796v-13.83l4.161-.8v-19.73l-4.161-.79v-13.66h25.031l16.675 26.31v-11.79l-4.16-.86v-13.66h20.835v13.66l-4.16.79v19.73l4.16.8V1425h-25.03l-16.675-25.62Zm86.288-23.19c3.143.67 5.975 1.62 8.494 2.84 2.519 1.23 4.657 2.8 6.413 4.72 1.78 1.89 3.144 4.18 4.091 6.86.948 2.66 1.422 5.77 1.422 9.33 0 3.12-.37 5.91-1.11 8.38-.716 2.45-1.756 4.62-3.12 6.49a18.803 18.803 0 0 1-4.957 4.71c-1.965 1.3-4.184 2.35-6.657 3.16-2.449.81-5.154 1.4-8.112 1.77-2.935.37-6.067.55-9.395.55h-25.03v-13.83l4.16-.8v-20.9l-4.16-.8v-12.48h37.961Zm-9.741 34.18c1.548 0 2.854-.12 3.917-.35 1.063-.23 1.93-.55 2.6-.97.693-.41 1.225-.93 1.595-1.56.393-.62.67-1.31.832-2.08.185-.76.289-1.6.312-2.53.023-.92.035-1.9.035-2.94s-.012-2.03-.035-2.95a11.94 11.94 0 0 0-.312-2.53c-.162-.79-.439-1.48-.832-2.08-.37-.63-.902-1.15-1.595-1.56-.67-.44-1.537-.78-2.6-1.01-1.063-.23-2.369-.34-3.917-.34h-3.19v20.9h3.19Zm35.188-34.18h29.19v13.66l-4.16.79v19.73l4.16.8V1425h-29.19v-13.83l4.16-.8v-19.73l-4.16-.79v-13.66Zm90.102 48.81h-20.732c-.647-1.2-1.317-2.47-2.011-3.81a83.924 83.924 0 0 1-3.848-8.84 47.567 47.567 0 0 1-1.421-4.86h-1.144V1425h-25.03v-13.83l4.16-.8v-19.73l-4.16-.79v-13.66h28.393c3.767 0 7.014.16 9.741.48 2.751.33 5.073.8 6.969 1.42 1.918.63 3.466 1.39 4.645 2.29 1.179.88 2.092 1.89 2.739 3.02.67 1.11 1.121 2.33 1.352 3.67.231 1.34.347 2.77.347 4.27 0 1.52-.151 2.91-.451 4.16a9.35 9.35 0 0 1-1.525 3.43c-.74 1.04-1.757 2-3.051 2.88-1.271.85-2.901 1.66-4.888 2.42.416.84 1.028 1.83 1.837 2.99.832 1.13 1.733 2.29 2.704 3.5.971 1.18 1.93 2.32 2.877 3.43.971 1.11 1.803 2.06 2.497 2.84v8.01Zm-29.156-26.9c1.271 0 2.415-.06 3.432-.18 1.04-.13 1.918-.41 2.635-.83.739-.44 1.306-1.07 1.698-1.9.393-.84.59-1.96.59-3.37 0-1.38-.197-2.49-.59-3.33-.392-.83-.959-1.46-1.698-1.9-.717-.46-1.595-.76-2.635-.9a25.34 25.34 0 0 0-3.432-.21v12.62Z"
-                          style="fill: rgb(26, 26, 26);" class="fills" data-testid="svg-path"/>
-                </svg>
-                <span class="name-hidden">Paritosh Pundir</span>
-
-            </h1>
-            <p class="tag-line">Helping small businesses and startups solve problems through <span>pixels</span> and RGB motion.</p>
-        </section>
-
-        <section class="about-section content-section">
-            <div class="section-inner">
-                <span class="section-label">About</span>
-                <div class="about-body">
-                    <p>
-                        I'm a self-taught full-stack developer and technology consultant based in
-                        <strong>Dehradun, India</strong>, with over <strong>14 years</strong> of experience
-                        in web design and development. I work with small businesses, startups, and international
-                        clients to turn ideas into polished digital products.
-                    </p>
-                    <p>
-                        I specialize in picking technology stacks that balance scalability with simplicity —
-                        building things that work well without over-engineering them.
-                    </p>
-                </div>
+        <section class="hero">
+            <div class="hero-text">
+                <p class="eyebrow">Fifteen years at the overlap of design, code and people</p>
+                <h1 class="hero-name" data-text="Paritosh Pundir">Paritosh Pundir</h1>
+                <p class="hero-lead">I turn scattered ideas into products people actually use.</p>
+                <p class="hero-support">
+                    A screen paints every frame in three passes of light: red, green and blue. I
+                    make products the same way. When design, build and reach point one direction,
+                    the passes resolve into a single picture.
+                </p>
             </div>
         </section>
 
-        <section class="skills-section content-section">
-            <div class="section-inner">
-                <span class="section-label">Skills</span>
-                <div class="skills-grid">
-                    {skills.map((group) => (
-                        <div class="skill-group">
-                            <h3 class="skill-category">{group.category}</h3>
-                            <ul class="skill-list">
-                                {group.items.map((item) => (
-                                    <li class="skill-item">{item}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </div>
+        <section class="pipeline" aria-labelledby="pipeline-heading">
+            <div class="section-head">
+                <h2 id="pipeline-heading">Three passes, one picture.</h2>
+                <p>Three line drawings on one thread. Each colour is a single pass of the same work, woven down until they coil into the thing a person opens and uses.</p>
             </div>
-        </section>
 
-        <section class="projects-section content-section">
-            <div class="section-inner">
-                <span class="section-label">Projects</span>
-                <div class="projects-grid">
-                    {projects.map((project) => (
-                        project.href ? (
-                            <a class="project-card" href={project.href} target="_blank" rel="noopener noreferrer">
-                                <div class="project-top">
-                                    <h3 class="project-title">{project.title}</h3>
-                                    {project.stars !== null && (
-                                        <span class="project-stars">★ {project.stars}</span>
-                                    )}
+            <div class="pipeline-body">
+                <div class="pipeline-main">
+                    <ol class="stages">
+                        {passes.map((p) => (
+                            <li class={`stage stage--${p.channel}`}>
+                                <div class="stage-figure">
+                                    <HairlineFigure
+                                        figure={p.figure}
+                                        channel={p.channel}
+                                        intensity={0.6}
+                                        label={`The ${p.title} pass, drawn as an interactive ${p.figure} figure`}
+                                    />
                                 </div>
-                                <p class="project-desc">{project.description}</p>
-                                {project.lang && (
-                                    <span class="project-lang">{project.lang}</span>
-                                )}
-                            </a>
-                        ) : (
-                            <div class="project-card project-card--static">
-                                <div class="project-top">
-                                    <h3 class="project-title">{project.title}</h3>
+                                <div class="stage-copy">
+                                    <span class="stage-role">{p.key} &middot; {p.role}</span>
+                                    <h3 class="stage-title">{p.title}</h3>
+                                    <p class="stage-text">{p.body}</p>
                                 </div>
-                                <p class="project-desc">{project.description}</p>
-                            </div>
-                        )
-                    ))}
+                            </li>
+                        ))}
+                    </ol>
+
+                    <div class="onepicture">
+                        <h3 class="onepicture-title">Back into one picture.</h3>
+                        <p class="onepicture-text">
+                            Pull the three passes together and they stop reading as separate. Design,
+                            build and reach become one product: the thing a person opens and uses.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rail" aria-hidden="true">
+                    <svg class="rail-weave" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path class="thread thread--r" d="M20,0 C40,12 60,20 50,30 C42,40 24,48 30,62 C38,74 55,82 50,100" />
+                        <path class="thread thread--g" d="M50,0 C50,14 50,22 50,32 C50,44 50,52 50,62 C50,74 50,86 50,100" />
+                        <path class="thread thread--b" d="M80,0 C60,12 40,20 50,30 C58,40 76,48 70,62 C62,74 45,82 50,100" />
+                    </svg>
+                    <figure class="rail-knot-wrap">
+                        <svg class="rail-knot" viewBox="0 0 120 126">
+                            <path class="thread thread--r" d="M60,0 C56,10 50,20 48,28" />
+                            <path class="thread thread--g" d="M60,0 C64,10 70,20 72,28" />
+                            <path class="thread thread--b" d="M60,0 C60,20 60,38 60,52" />
+                            <circle class="ring ring--r" cx="48" cy="62" r="34" />
+                            <circle class="ring ring--g" cx="72" cy="62" r="34" />
+                            <circle class="ring ring--b" cx="60" cy="86" r="34" />
+                        </svg>
+                        <figcaption class="venn-caption">R + G + B &rarr; one picture</figcaption>
+                    </figure>
                 </div>
             </div>
         </section>
 
-        <footer class="site-footer">
-            <div class="footer-inner">
-                <span class="footer-copy">Paritosh Pundir &mdash; Dehradun, India</span>
-                <nav class="footer-links">
+        <footer class="contact" aria-labelledby="contact-heading">
+            <p class="contact-kicker">Say hello</p>
+            <h2 id="contact-heading" class="contact-head">Let's make <span class="rgb-split">something</span>.</h2>
+            <a class="contact-email" href="mailto:Paritosh.Pundir@outlook.com">
+                <span class="contact-email-label">Paritosh.Pundir@outlook.com</span>
+                <span class="contact-email-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <div class="contact-foot">
+                <span class="contact-place">Dehradun, India &middot; open to work worldwide</span>
+                <nav class="contact-links">
                     <a href="https://github.com/Paari" target="_blank" rel="noopener noreferrer">GitHub</a>
                     <a href="https://www.linkedin.com/in/paritosh-pundir" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                     <a href="https://dribbble.com/paritosh_pundir" target="_blank" rel="noopener noreferrer">Dribbble</a>
@@ -151,400 +133,400 @@ const projects = [
 </Layout>
 
 <style>
+    .topbar {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem clamp(1.5rem, 5vw, 5rem);
+        border-bottom: 1px solid var(--line);
+    }
+
+    .mark {
+        display: inline-flex;
+        gap: 4px;
+    }
+
+    .mark-dot {
+        width: 9px;
+        height: 9px;
+    }
+
+    .mark-dot--r { background: var(--color-red); }
+    .mark-dot--g { background: var(--color-green); }
+    .mark-dot--b { background: var(--color-blue); }
+
+    .topbar-meta {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        letter-spacing: 0.01em;
+        color: var(--ink-soft);
+    }
+
+    .topbar-link {
+        margin-left: auto;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 1px solid var(--ink);
+        padding-bottom: 2px;
+    }
+
+    .topbar-link:hover {
+        color: var(--color-red);
+        border-color: var(--color-red);
+    }
+
     main {
+        display: block;
+    }
+
+    /* Hero ----------------------------------------------------------- */
+    .hero {
+        padding: clamp(4rem, 12vh, 9rem) clamp(1.5rem, 5vw, 5rem) clamp(3.5rem, 9vh, 7rem);
         position: relative;
-        overflow: hidden;
-        color: #1a1a1a;
     }
 
-    .rgb-canvas {
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        background:
-                radial-gradient(circle at 20% 10%, rgba(214, 69, 69, 0.05), transparent 45%),
-                radial-gradient(circle at 80% 25%, rgba(46, 158, 91, 0.05), transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(74, 91, 208, 0.05), transparent 45%),
-                linear-gradient(140deg, #ffffff 0%, #f5f6f8 100%);
-    }
-
-    .rgb-canvas::before {
+    .hero::before {
         content: '';
         position: absolute;
         inset: 0;
         background-image:
-                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-        background-size: 24px 24px;
-        opacity: 0.6;
-    }
-
-    .rgb-pixel {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-radius: 2px;
+            linear-gradient(var(--line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 48px 48px;
+        -webkit-mask-image: radial-gradient(circle at 30% 40%, #000, transparent 70%);
+        mask-image: radial-gradient(circle at 30% 40%, #000, transparent 70%);
         opacity: 0.5;
-        animation: pixelFloat 8s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 0;
     }
 
-    .rgb-pixel--r {
-        color: #d64545;
-        background: currentColor;
-        left: 10%;
-        top: 30%;
-    }
-
-    .rgb-pixel--g {
-        color: #2e9e5b;
-        background: currentColor;
-        right: 12%;
-        top: 58%;
-        animation-delay: 1.8s;
-    }
-
-    .rgb-pixel--b {
-        color: #4a5bd0;
-        background: currentColor;
-        left: 74%;
-        top: 16%;
-        animation-delay: 3.1s;
-    }
-
-    .main-header {
-        height: 80px;
-        display: flex;
-        align-items: center;
-        padding: 0 1rem;
-    }
-
-    .logo {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
+    .hero-text {
         position: relative;
-    }
-
-    .logo svg {
-        transition: transform 0.5s;
         z-index: 1;
-        position: relative;
     }
 
-    .logo:hover {
-        width: 150px;
+    .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--ink-faint);
+        margin: 0 0 1.25rem;
     }
 
-    .logo:hover svg {
-        transform: rotate(90deg);
-        animation: changeColor 3s infinite ease-in-out;
+    .hero-name {
+        font-size: clamp(2.75rem, 9vw, 6.5rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        margin: 0;
+        color: var(--ink);
+        /* The name split into its RGB channels. */
+        text-shadow:
+            0.018em 0 0 rgba(var(--red), 0.6),
+            -0.018em 0 0 rgba(var(--blue), 0.6),
+            0 0.015em 0 rgba(var(--green), 0.4);
+        transition: text-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    .logo-tag {
-        position: absolute;
-        left: 0;
-        top: 0;
-        text-transform: uppercase;
-        transition: left 0.4s, letter-spacing 0.6s;
-        line-height: 25px;
-        letter-spacing: -8px;
-        color: #1a1a1a;
+    .hero-name:hover {
+        text-shadow:
+            0.05em 0 0 rgba(var(--red), 0.75),
+            -0.05em 0 0 rgba(var(--blue), 0.75),
+            0 0.03em 0 rgba(var(--green), 0.5);
     }
 
-    .logo:hover .logo-tag {
-        letter-spacing: 2px;
-        left: 34px;
+    .hero-lead {
+        font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+        font-weight: 500;
+        line-height: 1.3;
+        max-width: 18ch;
+        margin: 1.75rem 0 1.25rem;
     }
 
-    .name-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        height: calc(100vh - 100px);
-        padding: 0 4rem;
-    }
-
-    .name {
-        position: relative;
+    .hero-support {
+        font-size: 1.05rem;
+        color: var(--ink-soft);
+        max-width: 44ch;
         margin: 0;
     }
 
-    .name svg {
-        width: 100%;
-        height: auto;
-        filter: none;
+    /* Pipeline: three passes woven into one picture ------------------ */
+    .pipeline {
+        padding: clamp(3.5rem, 8vh, 6rem) clamp(1.5rem, 5vw, 5rem);
+        border-top: 1px solid var(--line);
     }
 
-    .name::before {
-        content: '';
-        position: absolute;
-        inset: auto -2.5rem -0.75rem;
-        height: 1px;
-        background: linear-gradient(90deg, #d64545, #2e9e5b, #4a5bd0, #d64545);
-        background-size: 220% 100%;
-        animation: rgbShift 2.8s linear infinite;
+    .section-head {
+        max-width: 60ch;
+        margin-bottom: clamp(2.5rem, 5vh, 4rem);
     }
 
-    .name:after {
-        content: '';
-        position: absolute;
-        bottom: 6px;
-        right: -16px;
-        width: 8px;
-        height: 8px;
-        background-color: var(--color-red);
-    }
-
-    .name:hover.name:after {
-        animation: changeColor 3s infinite linear;
-    }
-
-    .name-hidden {
-        display: none;
-    }
-
-    @keyframes changeColor {
-        0% {
-            background-color: var(--color-red);
-            box-shadow: 2px 2px 15px -3px var(--color-red);
-        }
-        45% {
-            background-color: var(--color-green);
-            box-shadow: 2px 2px 15px -3px var(--color-green);
-        }
-        75% {
-            background-color: var(--color-blue);
-            box-shadow: 2px 2px 15px -3px var(--color-blue);
-        }
-        100% {
-            background-color: var(--color-red);
-            box-shadow: 2px 2px 15px -3px var(--color-red);
-        }
-    }
-
-    @keyframes pixelFloat {
-        0%,
-        100% {
-            transform: translateY(0) scale(1);
-        }
-        50% {
-            transform: translateY(-24px) scale(1.1);
-        }
-    }
-
-    @keyframes rgbShift {
-        0% {
-            background-position: 0 0;
-        }
-        100% {
-            background-position: 220% 0;
-        }
-    }
-
-    .tag-line {
-        font-size: 1.15rem;
-        color: #555;
-    }
-
-    .tag-line span {
-        color: #d64545;
-    }
-
-    .content-section {
-        padding: 5rem 4rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .section-inner {
-        display: grid;
-        grid-template-columns: 160px 1fr;
-        gap: 2rem;
-        max-width: 960px;
-    }
-
-    .section-label {
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #888;
-        padding-top: 0.25rem;
-    }
-
-    .about-body p {
-        margin: 0 0 1rem;
-        font-size: 1.05rem;
-        line-height: 1.75;
-        color: #444;
-        max-width: 640px;
-    }
-
-    .about-body p:last-child {
-        margin-bottom: 0;
-    }
-
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 2rem;
-    }
-
-    .skill-category {
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #1a1a1a;
+    .section-head h2 {
+        font-size: clamp(1.9rem, 4vw, 3rem);
         margin: 0 0 0.75rem;
     }
 
-    .skill-list {
-        list-style: none;
-        padding: 0;
+    .section-head p {
+        font-size: 1.1rem;
+        color: var(--ink-soft);
         margin: 0;
     }
 
-    .skill-item {
-        font-size: 0.95rem;
-        color: #555;
-        padding: 0.2rem 0;
-    }
-
-    .skill-item::before {
-        content: '—';
-        color: var(--color-red);
-        margin-right: 0.5rem;
-        font-size: 0.7rem;
-    }
-
-    .projects-grid {
+    .pipeline-body {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 1.25rem;
+        grid-template-columns: clamp(130px, 18vw, 210px) minmax(0, 1fr);
+        grid-template-areas: 'rail main';
+        gap: clamp(1.5rem, 5vw, 4rem);
+        align-items: stretch;
     }
 
-    .project-card {
-        display: block;
-        padding: 1.5rem;
-        border: 1px solid rgba(0, 0, 0, 0.12);
-        text-decoration: none;
-        color: inherit;
-        transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-        background: #ffffff;
-    }
-
-    .project-card:hover {
-        border-color: #4a5bd0;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .project-card--static {
-        cursor: default;
-    }
-
-    .project-card--static:hover {
-        border-color: rgba(0, 0, 0, 0.12);
-        transform: none;
-        box-shadow: none;
-    }
-
-    .project-top {
+    /* The thread: three woven line drawings that coil into the circles. */
+    .rail {
+        grid-area: rail;
+        position: relative;
         display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 0.75rem;
+        flex-direction: column;
     }
 
-    .project-title {
-        font-size: 1rem;
-        font-weight: 700;
+    .rail-weave {
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: 140px;
+    }
+
+    .rail-knot-wrap {
         margin: 0;
-        color: #1a1a1a;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
     }
 
-    .project-stars {
-        font-size: 0.8rem;
-        color: #2e9e5b;
-        white-space: nowrap;
-        margin-left: 0.5rem;
+    .rail-knot {
+        width: 100%;
+        height: auto;
+        overflow: visible;
     }
 
-    .project-desc {
-        font-size: 0.9rem;
-        line-height: 1.6;
-        color: #555;
+    .thread {
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .ring {
+        fill: none;
+        stroke-width: 2;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .thread--r,
+    .ring--r { stroke: var(--color-red); }
+    .thread--g,
+    .ring--g { stroke: var(--color-green); }
+    .thread--b,
+    .ring--b { stroke: var(--color-blue); }
+
+    .venn-caption {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        letter-spacing: 0.02em;
+        color: var(--ink-faint);
+    }
+
+    .pipeline-main {
+        grid-area: main;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stages {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stage {
+        display: grid;
+        grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+        gap: clamp(1.5rem, 4vw, 3rem);
+        align-items: center;
+        padding: clamp(1.75rem, 4vh, 2.75rem) 0;
+    }
+
+    .stage:first-child {
+        padding-top: 0;
+    }
+
+    .stage + .stage {
+        border-top: 1px solid var(--line);
+    }
+
+    .stage-figure {
+        width: 100%;
+    }
+
+    .stage-role {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--ink-faint);
+        margin-bottom: 0.5rem;
+    }
+
+    .stage-title {
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        margin: 0 0 0.75rem;
+    }
+
+    .stage--red .stage-title { color: var(--color-red); }
+    .stage--green .stage-title { color: var(--color-green); }
+    .stage--blue .stage-title { color: var(--color-blue); }
+
+    .stage-text {
+        font-size: 1.1rem;
+        color: var(--ink-soft);
+        max-width: 54ch;
+        margin: 0;
+    }
+
+    .onepicture {
+        border-top: 1px solid var(--line);
+        padding-top: clamp(1.75rem, 4vh, 2.75rem);
+        margin-top: clamp(1.5rem, 3vh, 2rem);
+    }
+
+    .onepicture-title {
+        font-size: clamp(1.9rem, 4vw, 3rem);
+        margin: 0 0 1rem;
+        max-width: 18ch;
+    }
+
+    .onepicture-text {
+        font-size: 1.15rem;
+        color: var(--ink-soft);
+        max-width: 52ch;
+        margin: 0;
+    }
+
+    /* Contact -------------------------------------------------------- */
+    .contact {
+        padding: clamp(4rem, 10vh, 7rem) clamp(1.5rem, 5vw, 5rem) clamp(3rem, 7vh, 5rem);
+        border-top: 1px solid var(--line);
+    }
+
+    .contact-kicker {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--ink-faint);
         margin: 0 0 1rem;
     }
 
-    .project-lang {
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #d64545;
+    .contact-head {
+        font-size: clamp(2.4rem, 8vw, 5.5rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        margin: 0 0 clamp(2rem, 5vh, 3rem);
     }
 
-    .site-footer {
-        padding: 2rem 4rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    .rgb-split {
+        color: var(--ink);
+        text-shadow:
+            0.018em 0 0 rgba(var(--red), 0.6),
+            -0.018em 0 0 rgba(var(--blue), 0.6),
+            0 0.015em 0 rgba(var(--green), 0.4);
+        transition: text-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    .footer-inner {
+    .contact-head:hover .rgb-split {
+        text-shadow:
+            0.05em 0 0 rgba(var(--red), 0.75),
+            -0.05em 0 0 rgba(var(--blue), 0.75),
+            0 0.03em 0 rgba(var(--green), 0.5);
+    }
+
+    .contact-email {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: clamp(1.3rem, 3.5vw, 2.4rem);
+        font-weight: 500;
+        color: var(--ink);
+        text-decoration: none;
+        padding-bottom: 0.3rem;
+        background-image: linear-gradient(90deg, var(--color-red), var(--color-green), var(--color-blue));
+        background-size: 100% 3px;
+        background-repeat: no-repeat;
+        background-position: 0 100%;
+    }
+
+    .contact-email-arrow {
+        display: inline-block;
+        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .contact-email:hover .contact-email-arrow {
+        transform: translateX(0.35em);
+    }
+
+    .contact-foot {
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
         gap: 1rem;
-        max-width: 960px;
+        margin-top: clamp(2.5rem, 6vh, 4rem);
     }
 
-    .footer-copy {
-        font-size: 0.85rem;
-        color: #888;
+    .contact-place {
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        color: var(--ink-faint);
     }
 
-    .footer-links {
+    .contact-links {
         display: flex;
-        gap: 1.5rem;
+        gap: 1.75rem;
     }
 
-    .footer-links a {
-        font-size: 0.85rem;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #1a1a1a;
+    .contact-links a {
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        color: var(--ink);
         text-decoration: none;
-        transition: color 0.2s;
     }
 
-    .footer-links a:hover {
-        color: var(--color-red);
+    .contact-links a:hover {
+        color: var(--color-blue);
     }
 
-    @media (max-width: 700px) {
-        .name-wrapper {
-            padding: 0 1.5rem;
-        }
-
-        .content-section {
-            padding: 3rem 1.5rem;
-        }
-
-        .section-inner {
+    @media (max-width: 760px) {
+        .pipeline-body {
             grid-template-columns: 1fr;
-            gap: 1rem;
+            grid-template-areas:
+                'main'
+                'rail';
         }
 
-        .site-footer {
-            padding: 2rem 1.5rem;
+        .rail-weave {
+            display: none;
         }
 
-        .footer-inner {
-            flex-direction: column;
-            align-items: flex-start;
+        .rail-knot-wrap {
+            max-width: 280px;
+            margin-top: clamp(1.5rem, 4vh, 2rem);
+        }
+
+        .stage {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .stage-figure {
+            max-width: 260px;
         }
     }
 </style>

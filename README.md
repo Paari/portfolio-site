@@ -1,54 +1,65 @@
-# Astro Starter Kit: Basics
+# Paritosh Pundir — Personal Site
 
-```sh
-npm create astro@latest -- --template basics
-```
+A single-page personal site built with [Astro](https://astro.build). Light,
+pixel-and-RGB visual language with interactive line-drawing illustrations from
+[`@lucasmarkes/hairline`](https://hairline.lucasmarkes.com/).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Concept
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The site is a curated story, not a résumé: a generalist designer-developer, told
+through a quiet light interface, an RGB accent system, a recurring pixel motif,
+and a few hand-drawn isometric "machines" that answer the pointer.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+- Design direction and decisions: [docs/CONCEPT.md](docs/CONCEPT.md)
+- Build plan and open tasks: [docs/HANDOFF.md](docs/HANDOFF.md)
 
-## 🚀 Project Structure
+## Tech
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Astro** — static site, zero-JS by default.
+- **@lucasmarkes/hairline** — interactive isometric line figures (ESM, zero
+  dependencies). Used via its vanilla DOM API inside Astro client scripts.
+- **Lato** — typography.
+
+## Project structure
 
 ```text
 /
+├── docs/
+│   ├── CONCEPT.md      # visual + content concept
+│   └── HANDOFF.md      # decisions and tasks for the next agent
 ├── public/
-│   └── favicon.svg
 ├── src/
 │   ├── components/
-│   │   └── Card.astro
 │   ├── layouts/
-│   │   └── Layout.astro
 │   └── pages/
-│       └── index.astro
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+All commands run from the project root:
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Command           | Action                                       |
+| :---------------- | :------------------------------------------- |
+| `npm install`     | Install dependencies                         |
+| `npm run dev`     | Start the dev server at `localhost:4321`     |
+| `npm run build`   | Build to `./dist/` (`astro check` runs first) |
+| `npm run preview` | Preview the production build locally         |
 
-## 🧞 Commands
+## Using Hairline
 
-All commands are run from the root of the project, from a terminal:
+Hairline is ESM and needs a DOM, so mount figures in an Astro client `<script>`
+after the target element exists:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```astro
+<div id="hero-figure" class="hairline-figure" aria-hidden="true"></div>
 
-## 👀 Want to learn more?
+<script>
+  import { phosphor } from '@lucasmarkes/hairline';
+  const el = document.getElementById('hero-figure');
+  if (el) phosphor(el, { intensity: 0.6, label: 'A glowing dot matrix' });
+</script>
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Theme the figures to the RGB palette with the `--hairline-*` custom properties —
+see [docs/CONCEPT.md](docs/CONCEPT.md).

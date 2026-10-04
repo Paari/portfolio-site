@@ -1,0 +1,81 @@
+---
+interface Props {
+    figure: string;
+    intensity?: number;
+    label: string;
+    channel?: 'red' | 'green' | 'blue';
+    class?: string;
+}
+
+const { figure, intensity = 0.5, label, channel, class: className = '' } = Astro.props;
+---
+
+<div
+    class:list={['hairline-figure', channel && `hairline-figure--${channel}`, className]}
+    data-figure={figure}
+    data-intensity={intensity}
+    data-label={label}
+>
+</div>
+
+<script>
+    import * as hairline from '@lucasmarkes/hairline';
+
+    const mount = () => {
+        document
+            .querySelectorAll<HTMLElement>('.hairline-figure[data-figure]')
+            .forEach((el) => {
+                if (el.dataset.mounted) return;
+                const name = el.dataset.figure as keyof typeof hairline;
+                const fn = hairline[name];
+                if (typeof fn !== 'function') return;
+                const intensity = el.dataset.intensity
+                    ? Number(el.dataset.intensity)
+                    : undefined;
+                (fn as (el: HTMLElement, opts?: object) => void)(el, {
+                    intensity,
+                    label: el.dataset.label || undefined,
+                });
+                el.dataset.mounted = 'true';
+            });
+    };
+
+    mount();
+    document.addEventListener('astro:after-swap', mount);
+</script>
+
+<style>
+    .hairline-figure {
+        /* Default: the full-colour picture, all three channels at once. */
+        --hairline-plate: #f6f5f3; /* must match the page background */
+        --hairline-hi: #141414; /* lit strokes = ink */
+        --hairline-edge: rgb(60, 86, 214); /* silhouettes = blue */
+        --hairline-mid: rgb(32, 150, 85); /* secondary strokes = green */
+        --hairline-lo: rgb(211, 58, 58); /* receding strokes = red */
+        --hairline-stroke: 1;
+        width: 100%;
+    }
+
+    /* A single channel: the figure drawn in one colour's ramp, so the three
+       stages read as the red, green and blue passes of one image. */
+    .hairline-figure--red {
+        --hairline-hi: #7a1414;
+        --hairline-edge: #b62f2f;
+        --hairline-mid: #d33a3a;
+        --hairline-lo: #e8a0a0;
+    }
+
+    .hairline-figure--green {
+        --hairline-hi: #0f5a32;
+        --hairline-edge: #178049;
+        --hairline-mid: #209655;
+        --hairline-lo: #93ccab;
+    }
+
+    .hairline-figure--blue {
+        --hairline-hi: #1f3091;
+        --hairline-edge: #334fc0;
+        --hairline-mid: #3c56d6;
+        --hairline-lo: #a8b4ec;
+    }
+</style>
