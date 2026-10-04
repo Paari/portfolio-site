@@ -50,11 +50,6 @@ const projects = [
 
 const rituals = [
     {
-        label: 'Practice',
-        val: 'Microsoft',
-        note: 'Senior Product Designer crafting enterprise and developer systems.',
-    },
-    {
         label: 'Tenure',
         val: '15 Years Building',
         note: 'From early web prototypes to scaled distributed products.',
@@ -69,10 +64,15 @@ const rituals = [
         val: 'Dehradun, India',
         note: 'At the foothills of the Himalayas, working worldwide.',
     },
+    {
+        label: 'Focus',
+        val: 'Design Systems & UI',
+        note: 'Building resilient component libraries and developer tools.',
+    },
 ] as const;
 ---
 
-<Layout title="Paritosh Pundir, Senior Product Designer at Microsoft">
+<Layout title="Paritosh Pundir, Senior Product Designer">
     <header class="nav wrap">
         <a class="brand" href="#top" aria-label="Paritosh Pundir, top">
             <span class="brand-mark" aria-hidden="true">
@@ -81,7 +81,7 @@ const rituals = [
                 <span class="brand-px brand-px--b"></span>
             </span>
             <span class="brand-name">PARITOSH PUNDIR</span>
-            <span class="brand-role">/ SR. PRODUCT DESIGNER AT MICROSOFT</span>
+            <span class="brand-role">/ DESIGNER &amp; DEVELOPER</span>
         </a>
         <nav class="nav-links">
             <a class="nav-anchor" href="#passes">The RGB Method</a>
@@ -99,12 +99,12 @@ const rituals = [
             </div>
 
             <div class="wrap hero-statement">
-                <h1 class="visually-hidden">Paritosh Pundir, Senior Product Designer at Microsoft</h1>
+                <h1 class="visually-hidden">Paritosh Pundir, Senior Product Designer</h1>
                 <p class="hero-lead">
                     I turn scattered ideas into products people actually use.
                 </p>
                 <p class="hero-subtext">
-                    Senior Product Designer at Microsoft. Fifteen years building at the seams of design systems, resilient web architecture, and product leadership.
+                    Fifteen years at the overlap of design systems, resilient web architecture, and product leadership. Based in Dehradun.
                 </p>
                 <div class="hero-actions">
                     <a href="#work" class="hero-btn hero-btn--primary">
@@ -115,6 +115,30 @@ const rituals = [
                         <span>The RGB Method</span>
                         <span class="btn-arrow" aria-hidden="true">&darr;</span>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intermediate Proof Bar (Taste-Skill Section 4.7: Proof belongs under hero) -->
+        <section class="proof-bar wrap" data-reveal aria-label="Current Role & Credibility">
+            <div class="proof-inner">
+                <div class="proof-main">
+                    <span class="proof-kicker">CURRENTLY</span>
+                    <div class="proof-entity">
+                        <!-- Authentic 2x2 square pixel Microsoft mark in grayscale -->
+                        <svg class="msft-mark" width="16" height="16" viewBox="0 0 23 23" fill="currentColor" aria-hidden="true">
+                            <rect x="0" y="0" width="10.8" height="10.8" />
+                            <rect x="12.2" y="0" width="10.8" height="10.8" />
+                            <rect x="0" y="12.2" width="10.8" height="10.8" />
+                            <rect x="12.2" y="12.2" width="10.8" height="10.8" />
+                        </svg>
+                        <span class="proof-company">Microsoft</span>
+                        <span class="proof-divider" aria-hidden="true">/</span>
+                        <span class="proof-role">Senior Product Designer</span>
+                    </div>
+                </div>
+                <div class="proof-note">
+                    Developer platforms &amp; cloud tooling
                 </div>
             </div>
         </section>
@@ -437,6 +461,94 @@ const rituals = [
 
     .hero-btn--secondary:hover .btn-arrow {
         transform: translateY(3px);
+    }
+
+    /* Proof Bar (Credibility strip) ---------------------------------- */
+    .proof-bar {
+        padding-top: 1rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .proof-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        padding: 0.95rem 1.4rem;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        font-family: var(--font-mono);
+        font-size: 0.8125rem;
+        flex-wrap: wrap;
+    }
+
+    .proof-main {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.85rem;
+        flex-wrap: wrap;
+    }
+
+    .proof-kicker {
+        font-size: 0.6875rem;
+        letter-spacing: 0.08em;
+        font-weight: 500;
+        color: var(--ink-faint);
+        padding: 0.2rem 0.45rem;
+        border: 1px solid var(--line);
+        background: rgb(var(--ink-rgb) / 0.03);
+    }
+
+    .proof-entity {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: var(--ink);
+    }
+
+    .msft-mark {
+        color: var(--ink);
+        opacity: 0.7;
+        flex-shrink: 0;
+        transition: opacity 0.2s;
+    }
+
+    .proof-inner:hover .msft-mark {
+        opacity: 1;
+    }
+
+    .proof-company {
+        font-weight: 600;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+    }
+
+    .proof-divider {
+        color: var(--ink-faint);
+    }
+
+    .proof-role {
+        color: var(--ink-soft);
+        font-weight: 500;
+    }
+
+    .proof-note {
+        font-size: 0.8125rem;
+        color: var(--ink-faint);
+        letter-spacing: 0.01em;
+    }
+
+    @media (max-width: 640px) {
+        .proof-inner {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .proof-note {
+            padding-left: calc(0.6875rem * 4);
+        }
     }
 
     /* Section Headers ------------------------------------------------ */
