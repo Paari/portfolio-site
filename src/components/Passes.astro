@@ -1,0 +1,366 @@
+---
+/**
+ * "Three passes, one picture." A pinned pixel figure that is assembled by
+ * scroll: the red pass gathers scattered pixels into a shape, the green pass
+ * builds it up from the bottom, the blue pass lifts it into place, and then
+ * the three channels register into a single ink picture.
+ */
+const steps = [
+    {
+        channel: 'r',
+        title: 'Design',
+        body: 'I take something scattered and give it a shape and a story, deciding what to leave out so the rest can breathe.',
+    },
+    {
+        channel: 'g',
+        title: 'Build',
+        body: 'I turn that shape into working software, choosing stacks that scale without over-engineering them.',
+    },
+    {
+        channel: 'b',
+        title: 'Lead',
+        body: 'I grow the team around the work and help people climb past their own doubts, so it reaches further than I could carry alone.',
+    },
+    {
+        channel: 'k',
+        title: 'One picture',
+        body: 'Pull the three passes together and they stop reading as separate. Design, build and reach become the thing a person opens and uses.',
+    },
+] as const;
+---
+
+<section class="passes" aria-labelledby="passes-heading" data-passes>
+    <div class="wrap passes-head" data-reveal>
+        <h2 id="passes-heading">Three passes, one picture.</h2>
+        <p>
+            A screen paints every frame in three passes of light: red, green and blue. I make
+            products the same way.
+        </p>
+    </div>
+
+    <div class="wrap passes-body">
+        <div class="passes-stage">
+            <div class="passes-frame">
+                <canvas class="passes-canvas" aria-hidden="true"></canvas>
+            </div>
+        </div>
+
+        <ol class="passes-steps" data-passes-track>
+            {
+                steps.map((s, i) => (
+                    <li class={`step step--${s.channel}`} data-step={i}>
+                        <h3 class="step-title">{s.title}</h3>
+                        <p class="step-body">{s.body}</p>
+                    </li>
+                ))
+            }
+        </ol>
+    </div>
+</section>
+
+<script>
+    import {
+        readPalette,
+        rgba,
+        clamp,
+        lerp,
+        smooth,
+        easeOut,
+        hash,
+        fitCanvas,
+        artBitmap,
+        prefersReducedMotion,
+        type Palette,
+    } from '../scripts/pixel';
+
+    const section = document.querySelector<HTMLElement>('[data-passes]');
+    const canvas = section?.querySelector<HTMLCanvasElement>('.passes-canvas');
+    const frame = section?.querySelector<HTMLElement>('.passes-frame');
+    const track = section?.querySelector<HTMLElement>('[data-passes-track]');
+    const steps = section ? [...section.querySelectorAll<HTMLElement>('[data-step]')] : [];
+
+    if (section && canvas && frame && track) {
+        // The picture they resolve into: the pointer of a thing someone is using.
+        const art = artBitmap([
+            '#...........',
+            '##..........',
+            '###.........',
+            '####........',
+            '#####.......',
+            '######......',
+            '#######.....',
+            '########....',
+            '#########...',
+            '##########..',
+            '###########.',
+            '######......',
+            '###.###.....',
+            '##..###.....',
+            '#....###....',
+            '.....###....',
+            '......##....',
+        ]);
+        const COLS = 18;
+        const ROWS = 21;
+        const OX = 4; // where the art sits inside the frame
+        const OY = 2;
+        const reduce = prefersReducedMotion();
+
+        let palette: Palette = readPalette();
+        let ctx: CanvasRenderingContext2D;
+        let cell = 16;
+        let size = { w: 0, h: 0 };
+        let progress = 0;
+        let lastDrawn = -1;
+        let shown = -1;
+        let raf = 0;
+        let visible = false;
+
+        // Misregistration of each channel before the final pass, in cells.
+        const OFFSETS = [
+            [-1.1, -0.5],
+            [0.9, -0.15],
+            [0.15, 0.95],
+        ];
+
+        const measure = () => {
+            const r = frame.getBoundingClientRect();
+            cell = Math.max(8, Math.floor(Math.min(r.width / COLS, r.height / ROWS)));
+            size = { w: cell * COLS, h: cell * ROWS };
+            ctx = fitCanvas(canvas, size.w, size.h);
+        };
+
+        const readProgress = () => {
+            const r = track.getBoundingClientRect();
+            const line = window.innerHeight * 0.55;
+            return clamp((line - r.top) / r.height);
+        };
+
+        const draw = (p: number) => {
+            ctx.clearRect(0, 0, size.w, size.h);
+
+            // Unlit lattice.
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.fillStyle = rgba(palette.ink, palette.dark ? 0.12 : 0.09);
+            const dot = Math.max(1.5, cell * 0.12);
+            for (let y = 0; y < ROWS; y++) {
+                for (let x = 0; x < COLS; x++) {
+                    ctx.fillRect(x * cell + cell / 2 - dot / 2, y * cell + cell / 2 - dot / 2, dot, dot);
+                }
+            }
+
+            const register = 1 - easeOut(smooth(0.76, 0.92, p));
+            const px = cell * 0.86;
+            ctx.globalCompositeOperation = palette.blend;
+
+            art.cells.forEach((c, i) => {
+                const tx = (OX + c.x) * cell + cell / 2;
+                const ty = (OY + c.y) * cell + cell / 2;
+                const rnd = hash(i + 1);
+                const rnd2 = hash(i + 101);
+
+                for (let k = 0; k < 3; k++) {
+                    const offset = OFFSETS[k];
+                    const chColor = palette.channels[k];
+                    if (!offset || !chColor) continue;
+                    const [ox, oy] = offset;
+                    if (ox === undefined || oy === undefined) continue;
+                    let x = tx + ox * cell * register;
+                    let y = ty + oy * cell * register;
+                    let a = 1;
+
+                    if (k === 0) {
+                        // Design: scattered pixels find their place.
+                        const t = easeOut(smooth(0.02 + rnd * 0.06, 0.2 + rnd * 0.04, p));
+                        const sx = (rnd - 0.5) * COLS * cell * 1.1;
+                        const sy = (rnd2 - 0.5) * ROWS * cell * 0.9;
+                        x = lerp(size.w / 2 + sx, x, t);
+                        y = lerp(size.h / 2 + sy, y, t);
+                        a = lerp(0.35, 1, t);
+                    } else if (k === 1) {
+                        // Build: laid down row by row from the bottom up.
+                        const rowFromBottom = 1 - c.y / art.rows;
+                        const start = 0.27 + rowFromBottom * 0.15;
+                        const t = smooth(start, start + 0.04, p);
+                        y -= (1 - easeOut(t)) * cell * 1.5;
+                        a = t;
+                    } else {
+                        // Lead: the whole thing is lifted into place, column by column.
+                        const start = 0.52 + (c.x / art.cols) * 0.1;
+                        const t = easeOut(smooth(start, start + 0.08, p));
+                        y += (1 - t) * cell * 6;
+                        a = t;
+                    }
+
+                    if (a <= 0.01) continue;
+                    ctx.fillStyle = rgba(chColor, a);
+                    ctx.fillRect(x - px / 2, y - px / 2, px, px);
+                }
+            });
+        };
+
+        const setActive = (p: number) => {
+            const idx = Math.min(steps.length - 1, Math.floor(p * steps.length));
+            if (idx === shown) return;
+            shown = idx;
+            steps.forEach((el, i) => el.classList.toggle('is-active', i === idx));
+            section.dataset.active = String(idx);
+        };
+
+        const tick = () => {
+            const target = readProgress();
+            progress = reduce ? target : lerp(progress, target, 0.14);
+            if (Math.abs(progress - target) < 0.0005) progress = target;
+            setActive(target);
+            if (progress !== lastDrawn) {
+                draw(progress);
+                lastDrawn = progress;
+            }
+            raf = visible || progress !== target ? requestAnimationFrame(tick) : 0;
+        };
+
+        measure();
+        progress = readProgress();
+        setActive(progress);
+        draw(progress);
+
+        // Only animate while the section is on screen; no scroll listeners.
+        new IntersectionObserver(([entry]) => {
+            visible = Boolean(entry?.isIntersecting);
+            if (visible && !raf) raf = requestAnimationFrame(tick);
+        }).observe(section);
+
+        new ResizeObserver(() => {
+            measure();
+            draw(progress);
+        }).observe(frame);
+
+        window
+            .matchMedia('(prefers-color-scheme: dark)')
+            .addEventListener('change', () => {
+                palette = readPalette();
+                draw(progress);
+            });
+    }
+</script>
+
+<style>
+    .passes {
+        padding-block: clamp(5rem, 14vh, 9rem) clamp(3rem, 8vh, 6rem);
+    }
+
+    .passes-head {
+        max-width: 62rem;
+    }
+
+    .passes-head h2 {
+        font-size: clamp(2.25rem, 5vw, 4rem);
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        line-height: 1.02;
+        margin: 0 0 1.25rem;
+    }
+
+    .passes-head p {
+        font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+        color: var(--ink-soft);
+        max-width: 46ch;
+        margin: 0;
+    }
+
+    .passes-body {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        gap: clamp(2rem, 6vw, 6rem);
+        margin-top: clamp(3rem, 8vh, 5rem);
+    }
+
+    .passes-stage {
+        position: sticky;
+        top: 100px;
+        height: min(75dvh, 560px);
+        display: grid;
+        place-items: center;
+    }
+
+    .passes-frame {
+        width: 100%;
+        height: min(65dvh, 480px);
+        display: grid;
+        place-items: center;
+    }
+
+    .passes-canvas {
+        display: block;
+    }
+
+    .passes-steps {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .step {
+        min-height: clamp(280px, 42dvh, 440px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0.28;
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .step:first-child {
+        min-height: clamp(220px, 35dvh, 360px);
+    }
+
+    .step.is-active {
+        opacity: 1;
+    }
+
+    .step-title {
+        font-family: var(--font-pixel);
+        font-weight: 500;
+        font-size: clamp(2.75rem, 6vw, 5.25rem);
+        line-height: 1;
+        letter-spacing: -0.01em;
+        margin: 0 0 1.25rem;
+        text-transform: uppercase;
+    }
+
+    .step--r .step-title { color: var(--r-text); }
+    .step--g .step-title { color: var(--g-text); }
+    .step--b .step-title { color: var(--b-text); }
+    .step--k .step-title { color: var(--ink); }
+
+    .step-body {
+        font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+        line-height: 1.55;
+        color: var(--ink-soft);
+        max-width: 34ch;
+        margin: 0;
+    }
+
+    @media (max-width: 767px) {
+        .passes-body {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        .passes-stage {
+            top: 0;
+            height: auto;
+            padding-block: 1rem;
+            background: var(--paper);
+            z-index: 1;
+        }
+
+        .passes-frame {
+            height: 42dvh;
+        }
+
+        .step,
+        .step:first-child {
+            min-height: 60dvh;
+        }
+    }
+</style>

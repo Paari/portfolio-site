@@ -1,471 +1,710 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HairlineFigure from '../components/HairlineFigure.astro';
+import PixelHero from '../components/PixelHero.astro';
+import Passes from '../components/Passes.astro';
 
-const passes = [
+const email = 'Paritosh.Pundir@outlook.com';
+
+const projects = [
     {
-        key: 'R',
-        channel: 'red',
-        title: 'Design',
-        role: 'first, the idea',
-        figure: 'riffle',
-        body: 'I take something scattered and give it a shape and a story, deciding what to leave out so the rest can breathe.',
+        channel: 'r',
+        category: 'Design & UX',
+        title: 'Chrome Reader Extension',
+        role: 'Creator & Maintainer',
+        tag: '67 Stars',
+        href: 'https://github.com/Paari/chrome-reader-extension',
+        desc: 'Distraction-free reading experience for the web. Strips clutter, isolates typography, and provides custom dark and paper themes.',
+        tech: ['React', 'Chrome MV3', 'Tailwind', 'Zero-Tracking'],
     },
     {
-        key: 'G',
-        channel: 'green',
-        title: 'Build',
-        role: 'then, the make',
-        figure: 'branches',
-        body: 'I turn that shape into working software, choosing stacks that scale without over-engineering them.',
+        channel: 'g',
+        category: 'Architecture & Systems',
+        title: 'Fitbit Health Explorer',
+        role: 'Open Source',
+        tag: 'Local-First',
+        href: 'https://github.com/Paari/fitbit-health-explorer',
+        desc: 'Local-first personal health analytics engine computing sleep stages, readiness scores, and strain trends via Google Health APIs.',
+        tech: ['TypeScript', 'SQLite', 'Charts', 'Google API'],
     },
     {
-        key: 'B',
-        channel: 'blue',
-        title: 'Lead',
-        role: 'then, the rise',
-        figure: 'elevator',
-        body: 'I grow the team around the work and help people climb past their own doubts, so it reaches further than I could carry alone.',
+        channel: 'b',
+        category: 'Product & Workflow',
+        title: 'DoRemember',
+        role: 'Design & Code',
+        tag: 'Productivity',
+        href: null,
+        desc: 'Zero-friction capture tool built for deep workers to record insights, schedule contextual reminders, and stay in uninterrupted flow.',
+        tech: ['Astro', 'TypeScript', 'LocalStorage', 'Keyboard-First'],
+    },
+    {
+        channel: 'g',
+        category: 'Developer Tooling',
+        title: 'Conventional Commit CLI',
+        role: 'Open Source',
+        tag: 'Terminal Tool',
+        href: 'https://github.com/Paari/conventional-commit-cli',
+        desc: 'Interactive terminal prompt enforcing standardized git commit conventions with fuzzy search and branch linting.',
+        tech: ['Node.js', 'CLI', 'Git Hooks', 'Inquirer'],
+    },
+] as const;
+
+const rituals = [
+    {
+        label: 'Workspace',
+        val: 'Neovim + Ghostty',
+        note: 'Pure keyboard flow, zero-latency editing ritual.',
+    },
+    {
+        label: 'Tenure',
+        val: '15 Years Building',
+        note: 'From early web prototypes to scaled distributed SaaS.',
+    },
+    {
+        label: 'Base',
+        val: 'Dehradun, India',
+        note: 'At the foothills of the Himalayas, working worldwide.',
+    },
+    {
+        label: 'Mindset',
+        val: 'State Cricket + Hindi Topper',
+        note: 'Athletic stamina meets storytelling and precision.',
     },
 ] as const;
 ---
 
-<Layout title="Paritosh Pundir — Designer & Developer">
-    <header class="topbar">
-        <span class="mark" aria-hidden="true">
-            <span class="mark-dot mark-dot--r"></span>
-            <span class="mark-dot mark-dot--g"></span>
-            <span class="mark-dot mark-dot--b"></span>
-        </span>
-        <span class="topbar-meta">Paritosh Pundir / Designer &amp; Developer</span>
-        <a class="topbar-link" href="mailto:Paritosh.Pundir@outlook.com">Get in touch</a>
+<Layout title="Paritosh Pundir, Designer & Developer">
+    <header class="nav wrap">
+        <a class="brand" href="#top" aria-label="Paritosh Pundir, top">
+            <span class="brand-mark" aria-hidden="true">
+                <span class="brand-px brand-px--r"></span>
+                <span class="brand-px brand-px--g"></span>
+                <span class="brand-px brand-px--b"></span>
+            </span>
+            <span class="brand-name">PARITOSH PUNDIR</span>
+            <span class="brand-role">/ DESIGNER &amp; DEVELOPER</span>
+        </a>
+        <nav class="nav-links">
+            <a class="nav-anchor" href="#passes">The RGB Method</a>
+            <a class="nav-anchor" href="#work">Selected Work</a>
+            <a class="nav-btn" href="#contact">Get in touch</a>
+        </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-text">
-                <p class="eyebrow">Fifteen years at the overlap of design, code and people</p>
-                <h1 class="hero-name" data-text="Paritosh Pundir">Paritosh Pundir</h1>
-                <p class="hero-lead">I turn scattered ideas into products people actually use.</p>
-                <p class="hero-support">
-                    A screen paints every frame in three passes of light: red, green and blue. I
-                    make products the same way. When design, build and reach point one direction,
-                    the passes resolve into a single picture.
+    <main id="top">
+        <!-- Hero Section -->
+        <section class="hero wrap" aria-label="Introduction">
+            <div class="hero-top">
+                <div class="hero-eyebrow">
+                    <span class="badge-dot"></span>
+                    <span>15 YEARS AT THE OVERLAP OF DESIGN, CODE AND PEOPLE</span>
+                </div>
+            </div>
+
+            <PixelHero name="PARITOSH PUNDIR" />
+
+            <div class="hero-statement">
+                <p class="hero-lead">
+                    I turn scattered ideas into products people actually use.
                 </p>
-            </div>
-        </section>
-
-        <section class="pipeline" aria-labelledby="pipeline-heading">
-            <div class="section-head">
-                <h2 id="pipeline-heading">Three passes, one picture.</h2>
-                <p>Three line drawings on one thread. Each colour is a single pass of the same work, woven down until they coil into the thing a person opens and uses.</p>
-            </div>
-
-            <div class="pipeline-body">
-                <div class="pipeline-main">
-                    <ol class="stages">
-                        {passes.map((p) => (
-                            <li class={`stage stage--${p.channel}`}>
-                                <div class="stage-figure">
-                                    <HairlineFigure
-                                        figure={p.figure}
-                                        channel={p.channel}
-                                        intensity={0.6}
-                                        label={`The ${p.title} pass, drawn as an interactive ${p.figure} figure`}
-                                    />
-                                </div>
-                                <div class="stage-copy">
-                                    <span class="stage-role">{p.key} &middot; {p.role}</span>
-                                    <h3 class="stage-title">{p.title}</h3>
-                                    <p class="stage-text">{p.body}</p>
-                                </div>
-                            </li>
-                        ))}
-                    </ol>
-
-                    <div class="onepicture">
-                        <h3 class="onepicture-title">Back into one picture.</h3>
-                        <p class="onepicture-text">
-                            Pull the three passes together and they stop reading as separate. Design,
-                            build and reach become one product: the thing a person opens and uses.
-                        </p>
+                <div class="hero-pillars">
+                    <div class="pillar pillar--r">
+                        <span class="pillar-key">R. DESIGN</span>
+                        <p class="pillar-desc">First, the idea. Finding the silhouette and cutting out noise.</p>
+                    </div>
+                    <div class="pillar pillar--g">
+                        <span class="pillar-key">G. BUILD</span>
+                        <p class="pillar-desc">Then, the make. Clean code architectures that scale with dignity.</p>
+                    </div>
+                    <div class="pillar pillar--b">
+                        <span class="pillar-key">B. LEAD</span>
+                        <p class="pillar-desc">Then, the rise. Mentoring teams and aligning vision to execute.</p>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="rail" aria-hidden="true">
-                    <svg class="rail-weave" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <path class="thread thread--r" d="M20,0 C40,12 60,20 50,30 C42,40 24,48 30,62 C38,74 55,82 50,100" />
-                        <path class="thread thread--g" d="M50,0 C50,14 50,22 50,32 C50,44 50,52 50,62 C50,74 50,86 50,100" />
-                        <path class="thread thread--b" d="M80,0 C60,12 40,20 50,30 C58,40 76,48 70,62 C62,74 45,82 50,100" />
-                    </svg>
-                    <figure class="rail-knot-wrap">
-                        <svg class="rail-knot" viewBox="0 0 120 126">
-                            <path class="thread thread--r" d="M60,0 C56,10 50,20 48,28" />
-                            <path class="thread thread--g" d="M60,0 C64,10 70,20 72,28" />
-                            <path class="thread thread--b" d="M60,0 C60,20 60,38 60,52" />
-                            <circle class="ring ring--r" cx="48" cy="62" r="34" />
-                            <circle class="ring ring--g" cx="72" cy="62" r="34" />
-                            <circle class="ring ring--b" cx="60" cy="86" r="34" />
-                        </svg>
-                        <figcaption class="venn-caption">R + G + B &rarr; one picture</figcaption>
-                    </figure>
+        <!-- The RGB Narrative Section -->
+        <div id="passes">
+            <Passes />
+        </div>
+
+        <!-- Selected Work Bento Grid -->
+        <section class="work wrap" id="work" aria-labelledby="work-heading">
+            <div class="section-header" data-reveal>
+                <div class="section-tag">
+                    <span class="tag-channel tag-channel--g"></span>
+                    <span>PROVEN OUTCOMES</span>
+                </div>
+                <h2 id="work-heading" class="section-title">Selected Work</h2>
+                <p class="section-sub">
+                    A sample of tools, open-source projects, and systems built with care.
+                </p>
+            </div>
+
+            <div class="projects-grid">
+                {
+                    projects.map((p, i) => (
+                        <article class={`project-card project-card--${p.channel}`} data-reveal style={`--i: ${i}`}>
+                            <div class="card-meta">
+                                <span class="card-badge">
+                                    <span class="badge-dot"></span>
+                                    {p.category}
+                                </span>
+                                <span class="card-tag">{p.tag}</span>
+                            </div>
+                            <h3 class="card-title">
+                                {p.href ? (
+                                    <a href={p.href} target="_blank" rel="noopener noreferrer" class="card-link">
+                                        {p.title}
+                                        <span class="link-arrow" aria-hidden="true">&nearr;</span>
+                                    </a>
+                                ) : (
+                                    <span>{p.title}</span>
+                                )}
+                            </h3>
+                            <p class="card-desc">{p.desc}</p>
+                            <div class="card-tech">
+                                {p.tech.map((t) => (
+                                    <span class="tech-pill">{t}</span>
+                                ))}
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- The Workshop & Rituals -->
+        <section class="rituals wrap" aria-labelledby="rituals-heading" data-reveal>
+            <div class="rituals-inner">
+                <div class="section-tag">
+                    <span class="tag-channel tag-channel--b"></span>
+                    <span>BEHIND THE SCREEN</span>
+                </div>
+                <h2 id="rituals-heading" class="rituals-title">The Workshop &amp; Rituals</h2>
+                <p class="rituals-sub">
+                    Generalist versatility backed by 15 years of continuous discipline.
+                </p>
+
+                <div class="rituals-grid">
+                    {
+                        rituals.map((r) => (
+                            <div class="ritual-cell">
+                                <span class="ritual-label">{r.label}</span>
+                                <strong class="ritual-val">{r.val}</strong>
+                                <span class="ritual-note">{r.note}</span>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </section>
 
-        <footer class="contact" aria-labelledby="contact-heading">
-            <p class="contact-kicker">Say hello</p>
-            <h2 id="contact-heading" class="contact-head">Let's make <span class="rgb-split">something</span>.</h2>
-            <a class="contact-email" href="mailto:Paritosh.Pundir@outlook.com">
-                <span class="contact-email-label">Paritosh.Pundir@outlook.com</span>
-                <span class="contact-email-arrow" aria-hidden="true">&rarr;</span>
-            </a>
-            <div class="contact-foot">
-                <span class="contact-place">Dehradun, India &middot; open to work worldwide</span>
-                <nav class="contact-links">
-                    <a href="https://github.com/Paari" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://www.linkedin.com/in/paritosh-pundir" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a href="https://dribbble.com/paritosh_pundir" target="_blank" rel="noopener noreferrer">Dribbble</a>
-                </nav>
+        <!-- Contact Section -->
+        <footer class="contact wrap" id="contact" aria-labelledby="contact-heading">
+            <div class="contact-box" data-reveal>
+                <div class="section-tag">
+                    <span class="tag-channel tag-channel--r"></span>
+                    <span>AVAILABILITY</span>
+                </div>
+                <h2 id="contact-heading" class="contact-head">
+                    Let's make
+                    <span class="misreg" data-misreg>
+                        <span class="misreg-layer misreg-layer--r" aria-hidden="true">something</span>
+                        <span class="misreg-layer misreg-layer--g" aria-hidden="true">something</span>
+                        <span class="misreg-layer misreg-layer--b">something</span>
+                    </span>.
+                </h2>
+                <p class="contact-lead">
+                    Open for select consulting, leadership roles, and early product builds.
+                </p>
+
+                <div class="contact-action">
+                    <a class="contact-email" href={`mailto:${email}`}>
+                        <span>{email}</span>
+                        <span class="contact-email-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="contact-foot">
+                    <span>Dehradun, India. Open to collaborate worldwide.</span>
+                    <nav class="contact-social" aria-label="Profiles">
+                        <a href="https://github.com/Paari" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="https://www.linkedin.com/in/paritosh-pundir" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://dribbble.com/paritosh_pundir" target="_blank" rel="noopener noreferrer">Dribbble</a>
+                    </nav>
+                </div>
             </div>
         </footer>
     </main>
 </Layout>
 
+<script>
+    // Chromatic alignment on contact element when in view
+    const word = document.querySelector<HTMLElement>('[data-misreg]');
+    if (word) {
+        const io = new IntersectionObserver(
+            (entries) => {
+                const e = entries[0];
+                if (!e?.isIntersecting) return;
+                setTimeout(() => word.classList.add('is-registered'), 300);
+                io.disconnect();
+            },
+            { threshold: 0.5 },
+        );
+        io.observe(word);
+    }
+</script>
+
 <style>
-    .topbar {
+    /* Navigation ----------------------------------------------------- */
+    .nav {
+        height: 72px;
         display: flex;
         align-items: center;
-        gap: 1rem;
-        padding: 1.5rem clamp(1.5rem, 5vw, 5rem);
+        justify-content: space-between;
         border-bottom: 1px solid var(--line);
     }
 
-    .mark {
+    .brand {
         display: inline-flex;
-        gap: 4px;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
     }
 
-    .mark-dot {
+    .brand-mark {
+        position: relative;
+        width: 32px;
+        height: 10px;
+    }
+
+    .brand-px {
+        position: absolute;
+        top: 0;
         width: 9px;
         height: 9px;
+        mix-blend-mode: multiply;
+        transition: transform 0.4s var(--ease);
     }
 
-    .mark-dot--r { background: var(--color-red); }
-    .mark-dot--g { background: var(--color-green); }
-    .mark-dot--b { background: var(--color-blue); }
+    .brand-px--r { left: 0; background: rgb(var(--r)); }
+    .brand-px--g { left: 11px; background: rgb(var(--g)); }
+    .brand-px--b { left: 22px; background: rgb(var(--b)); }
 
-    .topbar-meta {
+    .brand:hover .brand-px--r { transform: translateX(11px); }
+    .brand:hover .brand-px--b { transform: translateX(-11px); }
+
+    .brand-name {
+        font-family: var(--font-pixel);
+        font-size: 0.875rem;
+        letter-spacing: 0.02em;
+    }
+
+    .brand-role {
         font-family: var(--font-mono);
-        font-size: 0.82rem;
-        letter-spacing: 0.01em;
+        font-size: 0.75rem;
+        color: var(--ink-faint);
+    }
+
+    .nav-links {
+        display: inline-flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .nav-anchor {
+        font-family: var(--font-mono);
+        font-size: 0.8125rem;
         color: var(--ink-soft);
-    }
-
-    .topbar-link {
-        margin-left: auto;
-        font-family: var(--font-mono);
-        font-size: 0.82rem;
-        color: var(--ink);
         text-decoration: none;
-        border-bottom: 1px solid var(--ink);
-        padding-bottom: 2px;
+        transition: color 0.2s;
     }
 
-    .topbar-link:hover {
-        color: var(--color-red);
-        border-color: var(--color-red);
+    .nav-anchor:hover {
+        color: var(--ink);
     }
 
-    main {
-        display: block;
+    .nav-btn {
+        font-family: var(--font-mono);
+        font-size: 0.8125rem;
+        text-decoration: none;
+        padding: 0.45rem 0.85rem;
+        border: 1px solid var(--ink);
+        background: transparent;
+        color: var(--ink);
+        transition: all 0.2s var(--ease);
+    }
+
+    .nav-btn:hover {
+        background: var(--ink);
+        color: var(--paper);
     }
 
     /* Hero ----------------------------------------------------------- */
     .hero {
-        padding: clamp(4rem, 12vh, 9rem) clamp(1.5rem, 5vw, 5rem) clamp(3.5rem, 9vh, 7rem);
-        position: relative;
+        padding-top: clamp(2.5rem, 6vh, 4rem);
+        padding-bottom: clamp(4rem, 10vh, 7rem);
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
     }
 
-    .hero::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image:
-            linear-gradient(var(--line) 1px, transparent 1px),
-            linear-gradient(90deg, var(--line) 1px, transparent 1px);
-        background-size: 48px 48px;
-        -webkit-mask-image: radial-gradient(circle at 30% 40%, #000, transparent 70%);
-        mask-image: radial-gradient(circle at 30% 40%, #000, transparent 70%);
-        opacity: 0.5;
-        pointer-events: none;
-        z-index: 0;
+    .hero-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .hero-text {
-        position: relative;
-        z-index: 1;
-    }
-
-    .eyebrow {
+    .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
         font-family: var(--font-mono);
-        font-size: 0.85rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
         color: var(--ink-faint);
-        margin: 0 0 1.25rem;
     }
 
-    .hero-name {
-        font-size: clamp(2.75rem, 9vw, 6.5rem);
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        margin: 0;
-        color: var(--ink);
-        /* The name split into its RGB channels. */
-        text-shadow:
-            0.018em 0 0 rgba(var(--red), 0.6),
-            -0.018em 0 0 rgba(var(--blue), 0.6),
-            0 0.015em 0 rgba(var(--green), 0.4);
-        transition: text-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    .badge-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--g-text);
+        box-shadow: 0 0 6px var(--g-text);
     }
 
-    .hero-name:hover {
-        text-shadow:
-            0.05em 0 0 rgba(var(--red), 0.75),
-            -0.05em 0 0 rgba(var(--blue), 0.75),
-            0 0.03em 0 rgba(var(--green), 0.5);
+    .hero-statement {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.8fr);
+        gap: 3rem;
+        align-items: start;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
     }
 
     .hero-lead {
-        font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+        font-size: clamp(1.4rem, 2.5vw, 2.25rem);
         font-weight: 500;
-        line-height: 1.3;
-        max-width: 18ch;
-        margin: 1.75rem 0 1.25rem;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
+        margin: 0;
     }
 
-    .hero-support {
+    .hero-pillars {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+
+    .pillar {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding-top: 0.75rem;
+        border-top: 2px solid var(--line);
+    }
+
+    .pillar--r { border-top-color: var(--r-text); }
+    .pillar--g { border-top-color: var(--g-text); }
+    .pillar--b { border-top-color: var(--b-text); }
+
+    .pillar-key {
+        font-family: var(--font-pixel);
+        font-size: 0.8125rem;
+        letter-spacing: 0.02em;
+    }
+
+    .pillar--r .pillar-key { color: var(--r-text); }
+    .pillar--g .pillar-key { color: var(--g-text); }
+    .pillar--b .pillar-key { color: var(--b-text); }
+
+    .pillar-desc {
+        font-size: 0.875rem;
+        line-height: 1.45;
+        color: var(--ink-soft);
+        margin: 0;
+    }
+
+    /* Section Headers ------------------------------------------------ */
+    .section-header {
+        max-width: 48rem;
+        margin-bottom: clamp(2.5rem, 6vh, 4rem);
+    }
+
+    .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        color: var(--ink-faint);
+        margin-bottom: 0.75rem;
+    }
+
+    .tag-channel {
+        width: 8px;
+        height: 8px;
+    }
+
+    .tag-channel--r { background: var(--r-text); }
+    .tag-channel--g { background: var(--g-text); }
+    .tag-channel--b { background: var(--b-text); }
+
+    .section-title {
+        font-size: clamp(2.25rem, 5vw, 3.5rem);
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        margin: 0 0 0.75rem;
+    }
+
+    .section-sub {
+        font-size: 1.125rem;
+        color: var(--ink-soft);
+        margin: 0;
+    }
+
+    /* Selected Work Grid --------------------------------------------- */
+    .work {
+        padding-block: clamp(5rem, 12vh, 8rem);
+        border-top: 1px solid var(--line);
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+
+    .project-card {
+        padding: clamp(1.5rem, 4vw, 2.5rem);
+        border: 1px solid var(--line);
+        background: rgb(var(--ink-rgb) / 0.015);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    }
+
+    .project-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px -10px rgb(var(--ink-rgb) / 0.08);
+    }
+
+    .project-card--r:hover { border-color: var(--r-text); }
+    .project-card--g:hover { border-color: var(--g-text); }
+    .project-card--b:hover { border-color: var(--b-text); }
+
+    .card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+    }
+
+    .card-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--ink-soft);
+    }
+
+    .project-card--r .card-badge .badge-dot { background: var(--r-text); box-shadow: 0 0 6px var(--r-text); }
+    .project-card--g .card-badge .badge-dot { background: var(--g-text); box-shadow: 0 0 6px var(--g-text); }
+    .project-card--b .card-badge .badge-dot { background: var(--b-text); box-shadow: 0 0 6px var(--b-text); }
+
+    .card-tag {
+        color: var(--ink-faint);
+    }
+
+    .card-title {
+        font-size: clamp(1.4rem, 2vw, 1.85rem);
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        margin: 0;
+    }
+
+    .card-link {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .link-arrow {
+        transition: transform 0.2s var(--ease);
+    }
+
+    .card-link:hover .link-arrow {
+        transform: translate(2px, -2px);
+    }
+
+    .card-desc {
+        font-size: 0.9375rem;
+        line-height: 1.55;
+        color: var(--ink-soft);
+        margin: 0;
+        flex: 1 1 auto;
+    }
+
+    .card-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding-top: 0.75rem;
+        border-top: 1px dashed var(--line);
+    }
+
+    .tech-pill {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        padding: 0.2rem 0.55rem;
+        background: rgb(var(--ink-rgb) / 0.04);
+        color: var(--ink-soft);
+    }
+
+    /* Rituals Section ------------------------------------------------ */
+    .rituals {
+        padding-block: clamp(4rem, 10vh, 7rem);
+        border-top: 1px solid var(--line);
+    }
+
+    .rituals-inner {
+        max-width: 64rem;
+    }
+
+    .rituals-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        margin: 0 0 0.5rem;
+    }
+
+    .rituals-sub {
         font-size: 1.05rem;
         color: var(--ink-soft);
-        max-width: 44ch;
-        margin: 0;
+        margin: 0 0 clamp(2rem, 5vh, 3.5rem);
     }
 
-    /* Pipeline: three passes woven into one picture ------------------ */
-    .pipeline {
-        padding: clamp(3.5rem, 8vh, 6rem) clamp(1.5rem, 5vw, 5rem);
-        border-top: 1px solid var(--line);
-    }
-
-    .section-head {
-        max-width: 60ch;
-        margin-bottom: clamp(2.5rem, 5vh, 4rem);
-    }
-
-    .section-head h2 {
-        font-size: clamp(1.9rem, 4vw, 3rem);
-        margin: 0 0 0.75rem;
-    }
-
-    .section-head p {
-        font-size: 1.1rem;
-        color: var(--ink-soft);
-        margin: 0;
-    }
-
-    .pipeline-body {
+    .rituals-grid {
         display: grid;
-        grid-template-columns: clamp(130px, 18vw, 210px) minmax(0, 1fr);
-        grid-template-areas: 'rail main';
-        gap: clamp(1.5rem, 5vw, 4rem);
-        align-items: stretch;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.5rem;
     }
 
-    /* The thread: three woven line drawings that coil into the circles. */
-    .rail {
-        grid-area: rail;
-        position: relative;
+    .ritual-cell {
         display: flex;
         flex-direction: column;
+        gap: 0.4rem;
+        padding: 1.25rem;
+        border: 1px solid var(--line);
+        background: rgb(var(--ink-rgb) / 0.015);
     }
 
-    .rail-weave {
-        flex: 1 1 auto;
-        width: 100%;
-        min-height: 140px;
-    }
-
-    .rail-knot-wrap {
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .rail-knot {
-        width: 100%;
-        height: auto;
-        overflow: visible;
-    }
-
-    .thread {
-        fill: none;
-        stroke-width: 2;
-        stroke-linecap: round;
-        vector-effect: non-scaling-stroke;
-    }
-
-    .ring {
-        fill: none;
-        stroke-width: 2;
-        vector-effect: non-scaling-stroke;
-    }
-
-    .thread--r,
-    .ring--r { stroke: var(--color-red); }
-    .thread--g,
-    .ring--g { stroke: var(--color-green); }
-    .thread--b,
-    .ring--b { stroke: var(--color-blue); }
-
-    .venn-caption {
+    .ritual-label {
         font-family: var(--font-mono);
-        font-size: 0.82rem;
-        letter-spacing: 0.02em;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
         color: var(--ink-faint);
     }
 
-    .pipeline-main {
-        grid-area: main;
-        display: flex;
-        flex-direction: column;
+    .ritual-val {
+        font-family: var(--font-pixel);
+        font-size: 1rem;
+        letter-spacing: 0.01em;
+        color: var(--ink);
     }
 
-    .stages {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .stage {
-        display: grid;
-        grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-        gap: clamp(1.5rem, 4vw, 3rem);
-        align-items: center;
-        padding: clamp(1.75rem, 4vh, 2.75rem) 0;
-    }
-
-    .stage:first-child {
-        padding-top: 0;
-    }
-
-    .stage + .stage {
-        border-top: 1px solid var(--line);
-    }
-
-    .stage-figure {
-        width: 100%;
-    }
-
-    .stage-role {
-        display: block;
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        color: var(--ink-faint);
-        margin-bottom: 0.5rem;
-    }
-
-    .stage-title {
-        font-size: clamp(1.6rem, 3vw, 2.4rem);
-        margin: 0 0 0.75rem;
-    }
-
-    .stage--red .stage-title { color: var(--color-red); }
-    .stage--green .stage-title { color: var(--color-green); }
-    .stage--blue .stage-title { color: var(--color-blue); }
-
-    .stage-text {
-        font-size: 1.1rem;
+    .ritual-note {
+        font-size: 0.8125rem;
+        line-height: 1.4;
         color: var(--ink-soft);
-        max-width: 54ch;
-        margin: 0;
     }
 
-    .onepicture {
-        border-top: 1px solid var(--line);
-        padding-top: clamp(1.75rem, 4vh, 2.75rem);
-        margin-top: clamp(1.5rem, 3vh, 2rem);
-    }
-
-    .onepicture-title {
-        font-size: clamp(1.9rem, 4vw, 3rem);
-        margin: 0 0 1rem;
-        max-width: 18ch;
-    }
-
-    .onepicture-text {
-        font-size: 1.15rem;
-        color: var(--ink-soft);
-        max-width: 52ch;
-        margin: 0;
-    }
-
-    /* Contact -------------------------------------------------------- */
+    /* Contact Section ------------------------------------------------ */
     .contact {
-        padding: clamp(4rem, 10vh, 7rem) clamp(1.5rem, 5vw, 5rem) clamp(3rem, 7vh, 5rem);
+        padding-block: clamp(5rem, 12vh, 9rem) clamp(2rem, 5vh, 3rem);
         border-top: 1px solid var(--line);
     }
 
-    .contact-kicker {
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        color: var(--ink-faint);
-        margin: 0 0 1rem;
+    .contact-box {
+        max-width: 64rem;
     }
 
     .contact-head {
-        font-size: clamp(2.4rem, 8vw, 5.5rem);
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        margin: 0 0 clamp(2rem, 5vh, 3rem);
+        font-size: clamp(2.75rem, 8vw, 6.5rem);
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        line-height: 1.02;
+        margin: 0 0 1rem;
     }
 
-    .rgb-split {
-        color: var(--ink);
-        text-shadow:
-            0.018em 0 0 rgba(var(--red), 0.6),
-            -0.018em 0 0 rgba(var(--blue), 0.6),
-            0 0.015em 0 rgba(var(--green), 0.4);
-        transition: text-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    .misreg {
+        position: relative;
+        display: inline-grid;
+        font-family: var(--font-pixel);
+        font-weight: 500;
     }
 
-    .contact-head:hover .rgb-split {
-        text-shadow:
-            0.05em 0 0 rgba(var(--red), 0.75),
-            -0.05em 0 0 rgba(var(--blue), 0.75),
-            0 0.03em 0 rgba(var(--green), 0.5);
+    .misreg-layer {
+        grid-area: 1 / 1;
+        mix-blend-mode: multiply;
+        transition: transform 1.2s var(--ease);
+    }
+
+    .misreg-layer--r { color: rgb(var(--r)); transform: translate(-0.06em, -0.03em); }
+    .misreg-layer--g { color: rgb(var(--g)); transform: translate(0.05em, 0.02em); }
+    .misreg-layer--b { color: rgb(var(--b)); transform: translate(0.02em, 0.06em); }
+
+    .misreg.is-registered .misreg-layer {
+        transform: none;
+    }
+
+    .contact-lead {
+        font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+        color: var(--ink-soft);
+        max-width: 44ch;
+        margin: 0 0 clamp(2rem, 5vh, 3.5rem);
+    }
+
+    .contact-action {
+        margin-bottom: clamp(3rem, 8vh, 5rem);
     }
 
     .contact-email {
         display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        font-size: clamp(1.3rem, 3.5vw, 2.4rem);
+        align-items: baseline;
+        gap: 0.75rem;
+        font-size: clamp(1.4rem, 3.2vw, 2.5rem);
         font-weight: 500;
-        color: var(--ink);
+        letter-spacing: -0.02em;
         text-decoration: none;
-        padding-bottom: 0.3rem;
-        background-image: linear-gradient(90deg, var(--color-red), var(--color-green), var(--color-blue));
-        background-size: 100% 3px;
+        padding-bottom: 0.35rem;
+        background-image:
+            linear-gradient(rgb(var(--r)), rgb(var(--r))),
+            linear-gradient(rgb(var(--g)), rgb(var(--g))),
+            linear-gradient(rgb(var(--b)), rgb(var(--b)));
         background-repeat: no-repeat;
-        background-position: 0 100%;
+        background-size: 100% 2px;
+        background-position:
+            0 calc(100% - 6px),
+            0 calc(100% - 3px),
+            0 100%;
+        transition: background-position 0.35s var(--ease);
+    }
+
+    .contact-email:hover {
+        background-position:
+            0 100%,
+            0 100%,
+            0 100%;
     }
 
     .contact-email-arrow {
         display: inline-block;
-        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition: transform 0.3s var(--ease);
     }
 
     .contact-email:hover .contact-email-arrow {
@@ -477,56 +716,62 @@ const passes = [
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 1rem;
-        margin-top: clamp(2.5rem, 6vh, 4rem);
-    }
-
-    .contact-place {
+        gap: 1rem 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
         font-family: var(--font-mono);
-        font-size: 0.9rem;
+        font-size: 0.8125rem;
         color: var(--ink-faint);
     }
 
-    .contact-links {
+    .contact-social {
         display: flex;
-        gap: 1.75rem;
+        gap: 1.5rem;
     }
 
-    .contact-links a {
-        font-family: var(--font-mono);
-        font-size: 0.9rem;
+    .contact-social a {
         color: var(--ink);
         text-decoration: none;
+        transition: color 0.2s;
     }
 
-    .contact-links a:hover {
-        color: var(--color-blue);
+    .contact-social a:hover {
+        color: var(--b-text);
     }
 
-    @media (max-width: 760px) {
-        .pipeline-body {
-            grid-template-columns: 1fr;
-            grid-template-areas:
-                'main'
-                'rail';
+    @media (prefers-color-scheme: dark) {
+        .brand-px,
+        .misreg-layer {
+            mix-blend-mode: screen;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .rituals-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        .rail-weave {
+        .hero-statement {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-pillars {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .brand-role,
+        .nav-anchor {
             display: none;
         }
 
-        .rail-knot-wrap {
-            max-width: 280px;
-            margin-top: clamp(1.5rem, 4vh, 2rem);
-        }
-
-        .stage {
+        .projects-grid {
             grid-template-columns: 1fr;
-            gap: 1.25rem;
         }
 
-        .stage-figure {
-            max-width: 260px;
+        .rituals-grid {
+            grid-template-columns: 1fr;
         }
     }
 </style>

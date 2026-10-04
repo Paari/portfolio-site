@@ -1,79 +1,201 @@
 ---
+import geist from '../fonts/Geist-Variable.woff2?url';
+import geistMono from '../fonts/GeistMono-Variable.woff2?url';
+import geistPixel from '../fonts/GeistPixel-Square.woff2?url';
+
 interface Props {
-  title: string;
+    title: string;
+    description?: string;
 }
 
-const {title} = Astro.props;
+const {
+    title,
+    description = 'Paritosh Pundir is a designer and developer in Dehradun who turns scattered ideas into products people use.',
+} = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="description"
-          content="Paritosh Pundir — a designer and developer in Dehradun who turns scattered ideas into products people use."/>
-    <meta name="viewport" content="width=device-width"/>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <meta name="description" content={description}/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"/>
+    <meta name="theme-color" content="#f2f2f0" media="(prefers-color-scheme: light)"/>
+    <meta name="theme-color" content="#0e0f11" media="(prefers-color-scheme: dark)"/>
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}/>
+    <link rel="preload" href={geist} as="font" type="font/woff2" crossorigin/>
+    <link rel="preload" href={geistPixel} as="font" type="font/woff2" crossorigin/>
     <meta name="generator" content={Astro.generator}/>
     <title>{title}</title>
+    <style set:html={`
+        @font-face { font-family: 'Geist'; src: url('${geist}') format('woff2'); font-weight: 100 900; font-display: swap; }
+        @font-face { font-family: 'Geist Mono'; src: url('${geistMono}') format('woff2'); font-weight: 100 900; font-display: swap; }
+        @font-face { font-family: 'Geist Pixel'; src: url('${geistPixel}') format('woff2'); font-weight: 500; font-display: swap; }
+    `}></style>
 </head>
 <body>
 <slot/>
+<script>
+    // Initialize scroll reveal softly without blocking initial render
+    if ('IntersectionObserver' in window) {
+        const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
+        const io = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((e) => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('is-in');
+                        io.unobserve(e.target);
+                    }
+                });
+            },
+            { threshold: 0.05, rootMargin: '0px 0px 40px 0px' },
+        );
+        items.forEach((el) => {
+            el.classList.add('reveal-active');
+            io.observe(el);
+        });
+    }
+</script>
 </body>
 </html>
+
 <style is:global>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
-
     :root {
-        /* RGB channels carry meaning across the site. */
-        --red: 211, 58, 58; /* Design */
-        --green: 32, 150, 85; /* Build */
-        --blue: 60, 86, 214; /* Lead */
-        --color-red: rgb(var(--red));
-        --color-green: rgb(var(--green));
-        --color-blue: rgb(var(--blue));
+        /* RGB channels carry the whole idea. Space-separated so canvas code can read them. */
+        --r: 232 56 48;
+        --g: 34 160 90;
+        --b: 52 84 230;
 
-        --ink: #141414;
-        --ink-soft: #3d3d3d;
-        --ink-faint: #6b6b6b;
-        --paper: #f6f5f3;
-        --line: rgba(20, 20, 20, 0.12);
+        /* Channel colours for text: darker so they pass WCAG AA on paper. */
+        --r-text: #c32a22;
+        --g-text: #12804a;
+        --b-text: #2f4fd6;
 
-        --font-display: 'Space Grotesk', sans-serif;
-        --font-mono: 'JetBrains Mono', monospace;
+        --paper: #f2f2f0;
+        --ink: #111214;
+        --ink-rgb: 17 18 20;
+        --ink-soft: #46484c;
+        --ink-faint: #6b6d72;
+        --line: rgb(17 18 20 / 0.1);
+
+        --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+        --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+        --font-pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
+
+        --gutter: clamp(1.25rem, 5vw, 4.5rem);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * {
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --r: 255 70 62;
+            --g: 52 222 118;
+            --b: 76 118 255;
+
+            --r-text: #ff6b62;
+            --g-text: #4bd889;
+            --b-text: #8aa2ff;
+
+            --paper: #0e0f11;
+            --ink: #ececea;
+            --ink-rgb: 236 236 234;
+            --ink-soft: #b3b5b9;
+            --ink-faint: #8b8d92;
+            --line: rgb(236 236 234 / 0.12);
+        }
+    }
+
+    *,
+    *::before,
+    *::after {
         box-sizing: border-box;
     }
 
     html {
-        font-family: var(--font-display);
+        font-family: var(--font-sans);
         background: var(--paper);
         color: var(--ink);
         -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
     }
 
     body {
         margin: 0;
-        min-height: 100vh;
-        font-size: 1.125rem;
+        min-height: 100dvh;
+        font-size: 1.0625rem;
         line-height: 1.6;
+        overflow-x: clip;
     }
 
     h1, h2, h3 {
-        line-height: 1.1;
-        letter-spacing: -0.02em;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
     }
 
     a {
         color: inherit;
     }
 
+    ::selection {
+        background: rgb(var(--b) / 0.22);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--b-text);
+        outline-offset: 3px;
+    }
+
+    .wrap {
+        width: 100%;
+        max-width: 1320px;
+        margin-inline: auto;
+        padding-inline: var(--gutter);
+    }
+
+    .visually-hidden {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .reveal-active:not(.is-in) {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        .reveal-active {
+            transition:
+                opacity 0.6s var(--ease),
+                transform 0.6s var(--ease);
+            transition-delay: calc(var(--i, 0) * 80ms);
+        }
+
+        .reveal-active.is-in {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-        * {
-            animation: none !important;
-            transition: none !important;
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
         }
     }
 </style>
