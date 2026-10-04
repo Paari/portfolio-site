@@ -16,27 +16,6 @@ const { name } = Astro.props;
     <noscript>
         <h1 class="pixel-hero-fallback">{name}</h1>
     </noscript>
-
-    <div class="hero-hud">
-        <div class="hud-status">
-            <span class="hud-pip" aria-hidden="true"></span>
-            <span class="hud-text">PARITOSH.PUNDIR // 15 YRS SYSTEM &amp; DESIGN</span>
-        </div>
-        <div class="hud-controls" aria-label="RGB Interactive Modes">
-            <button type="button" class="hud-btn is-active" data-mode="loupe">
-                <span class="btn-dot btn-dot--r"></span>
-                <span class="btn-dot btn-dot--g"></span>
-                <span class="btn-dot btn-dot--b"></span>
-                <span>RGB Loupe</span>
-            </button>
-            <button type="button" class="hud-btn" data-mode="split">
-                <span>Split Channels</span>
-            </button>
-            <button type="button" class="hud-btn" data-mode="phosphor">
-                <span>CRT Grid</span>
-            </button>
-        </div>
-    </div>
 </div>
 
 <script>
@@ -51,7 +30,6 @@ const { name } = Astro.props;
 
     const root = document.querySelector<HTMLElement>('[data-pixel-hero]');
     const canvas = root?.querySelector<HTMLCanvasElement>('canvas');
-    const hudButtons = root ? [...root.querySelectorAll<HTMLButtonElement>('.hud-btn')] : [];
 
     if (root && canvas) {
         const bitmap = textBitmap(['PARITOSH', 'PUNDIR'], 2);
@@ -66,7 +44,6 @@ const { name } = Astro.props;
         let originY = 0;
         let gridCols = 0;
         let gridRows = 0;
-        let mode: 'loupe' | 'split' | 'phosphor' = 'loupe';
 
         const lit = new Set<string>();
         bitmap.cells.forEach((c) => lit.add(`${c.x},${c.y}`));
@@ -81,7 +58,6 @@ const { name } = Astro.props;
         };
 
         let raf = 0;
-        let splitProgress = 0;
 
         const measure = () => {
             const wrap = root.getBoundingClientRect();
@@ -109,9 +85,8 @@ const { name } = Astro.props;
             const sigma2 = 2 * (radius * 0.55) ** 2;
             const amp = cell * 0.85 * pointer.on;
 
-            // 1. Background Pixel Grid (CRT phosphor subpixels under loupe or phosphor mode)
+            // 1. Background Pixel Grid (CRT phosphor subpixels under loupe)
             ctx.globalCompositeOperation = 'source-over';
-            const dot = Math.max(1.5, cell * 0.12);
 
             for (let gy = 0; gy < gridRows; gy++) {
                 for (let gx = 0; gx < gridCols; gx++) {
@@ -127,7 +102,7 @@ const { name } = Astro.props;
                     const dy = cy - pointer.y;
                     const s = Math.exp(-(dx * dx + dy * dy) / sigma2) * pointer.on;
 
-                    if (s > 0.05 && mode !== 'split') {
+                    if (s > 0.05) {
                         // Under pointer loupe, unlit subpixels ignite in red, green, blue
                         const barW = cell * 0.2;
                         const barH = cell * 0.7 * (0.6 + 0.4 * s);
@@ -137,11 +112,6 @@ const { name } = Astro.props;
                             ctx.fillStyle = rgba(ch, 0.75 * s);
                             ctx.fillRect(cx + (k - 1) * cell * 0.28 - barW / 2, cy - barH / 2, barW, barH);
                         }
-                    } else if (mode === 'phosphor') {
-                        // Ambient resting pixel dot in explicit CRT Grid mode
-                        const alpha = palette.dark ? 0.2 : 0.12;
-                        ctx.fillStyle = rgba(palette.ink, alpha);
-                        ctx.fillRect(cx - dot / 2, cy - dot / 2, dot, dot);
                     }
                 }
             }
@@ -164,18 +134,9 @@ const { name } = Astro.props;
                 const m = amp * s;
 
                 // Loupe channel offsets based on pointer proximity
-                let off0: [number, number] = [ux * m, uy * m];
-                let off1: [number, number] = [-uy * m * 0.35, ux * m * 0.35];
-                let off2: [number, number] = [-ux * m, -uy * m];
-
-                // If "split" mode is active, separate R, G, B permanently
-                if (splitProgress > 0.01) {
-                    const splitDistance = cell * 0.65 * splitProgress;
-                    off0 = [off0[0] - splitDistance, off0[1] - splitDistance * 0.4];
-                    off1 = [off1[0], off1[1] + splitDistance * 0.2];
-                    off2 = [off2[0] + splitDistance, off2[1] + splitDistance * 0.4];
-                }
-
+                const off0: [number, number] = [ux * m, uy * m];
+                const off1: [number, number] = [-uy * m * 0.35, ux * m * 0.35];
+                const off2: [number, number] = [-ux * m, -uy * m];
                 const offsets = [off0, off1, off2] as const;
 
                 for (let k = 0; k < 3; k++) {
@@ -199,16 +160,12 @@ const { name } = Astro.props;
             pointer.x = lerp(pointer.x, pointer.tx, 0.22);
             pointer.y = lerp(pointer.y, pointer.ty, 0.22);
 
-            const targetSplit = mode === 'split' ? 1 : 0;
-            splitProgress = lerp(splitProgress, targetSplit, 0.12);
-
             draw();
 
             const isMoving =
                 Math.abs(pointer.on - pointer.target) > 0.002 ||
                 Math.abs(pointer.x - pointer.tx) > 0.4 ||
-                Math.abs(pointer.y - pointer.ty) > 0.4 ||
-                Math.abs(splitProgress - targetSplit) > 0.005;
+                Math.abs(pointer.y - pointer.ty) > 0.4;
 
             raf = isMoving ? requestAnimationFrame(tick) : 0;
         };
@@ -241,15 +198,6 @@ const { name } = Astro.props;
         canvas.addEventListener('pointermove', onMove, { passive: true });
         canvas.addEventListener('pointerleave', onLeave);
 
-        hudButtons.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                hudButtons.forEach((b) => b.classList.remove('is-active'));
-                btn.classList.add('is-active');
-                mode = (btn.dataset.mode as 'loupe' | 'split' | 'phosphor') || 'loupe';
-                wake();
-            });
-        });
-
         measure();
         new ResizeObserver(() => measure()).observe(root);
 
@@ -268,7 +216,6 @@ const { name } = Astro.props;
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
     }
 
     .hero-canvas-wrap {
@@ -293,78 +240,4 @@ const { name } = Astro.props;
         margin: 0;
         text-transform: uppercase;
     }
-
-    .hero-hud {
-        width: 100%;
-        max-width: 1320px;
-        margin-inline: auto;
-        padding-inline: var(--gutter);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 0.75rem 1.5rem;
-    }
-
-    .hud-status {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        letter-spacing: 0.04em;
-        color: var(--ink-faint);
-    }
-
-    .hud-pip {
-        width: 7px;
-        height: 7px;
-        background: var(--g-text);
-        box-shadow: 0 0 8px var(--g-text);
-    }
-
-    .hud-controls {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .hud-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        padding: 0.35rem 0.65rem;
-        background: transparent;
-        border: 1px solid var(--line);
-        color: var(--ink-soft);
-        cursor: pointer;
-        transition: all 0.2s var(--ease);
-    }
-
-    .hud-btn:hover {
-        border-color: var(--ink);
-        color: var(--ink);
-    }
-
-    .hud-btn.is-active {
-        background: var(--ink);
-        color: var(--paper);
-        border-color: var(--ink);
-    }
-
-    .btn-dot {
-        width: 5px;
-        height: 5px;
-        display: inline-block;
-    }
-
-    .btn-dot--r { background: var(--r-text); }
-    .btn-dot--g { background: var(--g-text); }
-    .btn-dot--b { background: var(--b-text); }
-
-    .hud-btn.is-active .btn-dot--r { background: rgb(var(--r)); }
-    .hud-btn.is-active .btn-dot--g { background: rgb(var(--g)); }
-    .hud-btn.is-active .btn-dot--b { background: rgb(var(--b)); }
 </style>
